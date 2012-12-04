@@ -1,21 +1,171 @@
-%&LaTeX
-% !TEX encoding = UTF-8 Unicode
-\documentclass{article}
-\usepackage[utf8x]{inputenc}
+%!TEX TS-program = pdflatex
+
+%%%% Latex preamble and page formatting %%%%
+
+\documentclass[12pt]{article}  % larger font to compensate for long lines with fullpage
+\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{textcomp}
-
+\usepackage[pdfborder={0 0 0}]{hyperref} % use hyperref without borders
+\hypersetup{
+    pdftitle = {Network Service Interface Topology Service},
+    pdfauthor = {Jeroen van der Ham},
+    pdfsubject = {Specification of the syntax and distribution mechanism of the topology service},
+    pdfkeywords = {network topology distribution}
+}
+\usepackage{ifpdf}
+\usepackage{ifthen}
 \usepackage{graphicx}
-\usepackage{longtable}
+\usepackage{url}
 \usepackage{color}
-\usepackage{hyperref}
+\usepackage{listings}
+\usepackage[title,titletoc]{appendix}
+% Read pictures from img/ and current directory
+\graphicspath{{img/}{./}}
 
-\definecolor{color01}{rgb}{0.00,0.00,0.00}
-\definecolor{color02}{rgb}{0.40,0.40,0.40}
+%%% GWD/GFD header follows %%%
+% Feel free to make changes, as long as your document follows the guidelines of GFP.152
+
+\usepackage[numbers]{natbib} % Use [1] for references, 
+\bibliographystyle{plainnat} % References show full author name(s) and document URL
+
+\usepackage[sf,compact]{titlesec} % Use sans-serif for section headers
+
+\usepackage[titles]{tocloft} % Format table of contents
+% (tocloft is used, since titletoc is incompatible with xetex.)
+\renewcommand{\cftsecfont}{\sffamily}
+\renewcommand{\cftsubsecfont}{\sffamily}
+\renewcommand{\cftsubsubsecfont}{\sffamily}
+\renewcommand{\cftsecpagefont}{\sffamily}
+\renewcommand{\cftsubsecpagefont}{\sffamily}
+\renewcommand{\cftsubsubsecpagefont}{\sffamily}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftsubsecdotsep}} % dots for sections the same as for sections
+\setlength{\cftbeforesecskip}{0.5ex}
+
+\usepackage{parskip} % Blank lines between paragraphs, no indentation.
+
+% font style for headers and footers
+\newcommand{\headerstyle}{\sffamily} % sans-serif
+
+% Set page margins
+\usepackage{fancyhdr}
+\addtolength{\headheight}{15pt}
+\renewcommand{\headrulewidth}{0pt}
+% \setlength{\headrulewidth}{0pt}
+\setlength{\headsep}{20pt}
+\usepackage[headings]{fullpage}  % small margins
+
+% Macro to make some editorial notes
+\newenvironment{note}{\framebox{note:} \color[gray]{0.5}}{}
+
+% Macro to check if (optional) values above are defined or not.
+\newcommand{\ifnonempty}[2]{\ifthenelse{\isundefined{#1}}{}{\ifthenelse{\equal{#1}{}}{}{#2}}}
+
+%%%% Document header and title page %%%%
+
+\title{Network Service Interface Topology Service}
+\author{Jeroen van der Ham}
+\newcommand{\shortdoctitle}{NML version 1}  % Title used in page header
+% \date{} and \author{} are currently ignored
+\newcommand{\authorsshort}{Jeroen van der Ham, UvA}
+\newcommand{\publicationdate}{December 2012}  % Date of first publication of the document
+% \newcommand{\revisiondate}{August 2012}  % Optional: date of last revision of the document
+\newcommand{\copyrightyears}{2008-2012}  % Years used in copyright notice
+\newcommand{\docseries}{GWD-R-P}  % GWD-R, GWD-I or GWD-C (for working drafts)
+% \newcommand{\docseries}{GFD.191}  % GFD.000 (for approved documents)
+
+\ifpdf
+\hypersetup{
+    pdftitle = {Network Service Interface Topology Service},
+    pdfauthor = {Jeroen van der Ham},
+    pdfsubject = {Specification of the syntax and distribution mechanism of the topology service},
+    pdfkeywords = {network topology distribution}
+}
+\fi
+
+
+% Define page header and footers
+\pagestyle{fancyplain}
+\fancyhf{}
+\lhead{\fancyplain{}{\headerstyle\docseries}}
+% use \revisiondate if defined, otherwise \publicationdate for right header:
+\rhead{\fancyplain{}{\headerstyle\ifthenelse{\isundefined{\revisiondate }}{\publicationdate}{\ifthenelse{\equal{\revisiondate}{}}{\publicationdate}{\revisiondate}}}}
+\lfoot{\headerstyle\ifnonempty{\groupurl}{\groupurl}}
+\rfoot{\headerstyle\thepage}
+\thispagestyle{plain}
 
 \begin{document}
 
-\section{NSI Topology Service}
+% Title page header
+{\noindent
+\begin{minipage}[t]{1.5in}
+\headerstyle
+\docseries \\
+NSI-WG \\
+\href{mailto:nsi-wg@ogf.org}{nsi-wg@ogf.org}
+\end{minipage}
+\hfill
+\raggedleft
+\begin{minipage}[t]{4.5in}
+\raggedleft
+\headerstyle
+\authorsshort \\
+\vspace{1em}
+\publicationdate \\
+\ifnonempty{\revisiondate}{Revised \revisiondate \\}
+\end{minipage}
+}
+
+\vspace{1em}
+\begin{center}
+\makeatletter
+\Large\bf\textsf \@title
+\makeatother
+\end{center}
+
+
+\section*{Status of This Document}
+
+Group Working Draft (GWD), candidate Recommendations Proposed (R-P).
+% TODO: before publication:
+%Grid Final Draft (GFD), candidate Recommendations Proposed (R-P).
+
+
+% \section*{Document Change History}
+% 
+% TODO: use this for formal revisions of this document
+
+\section*{Copyright Notice}
+
+Copyright \copyright \ Open Grid Forum (\copyrightyears).  Some Rights Reserved.  
+Distribution is unlimited.
+
+\phantomsection\addcontentsline{toc}{section}{Abstract}
+\section*{Abstract}
+
+This document describes a normative schema which allows the
+description of service plane objects required for the Network Service Interface Connection Service. Additionally it describes a set of distribution mechanisms for the network topology descriptions.
+
+\phantomsection\addcontentsline{toc}{section}{Contents}
+\tableofcontents
+
+\newcommand{\qq}{\symbol{34}} % 34 is the decimal LaTeX code for "
+\newcommand{\q}{\symbol{39}} % 39 is the decimal LaTeX code for '
+\newcommand{\underscore}{\symbol{95}} % 39 is the decimal LaTeX code for _
+
+\newcommand{\MUST}{\textsc{must}}
+\newcommand{\MUSTNOT}{\textsc{must not}}
+\newcommand{\REQUIRED}{\textsc{required}}
+\newcommand{\SHALL}{\textsc{shall}}
+\newcommand{\SHALLNOT}{\textsc{shall not}}
+\newcommand{\SHOULD}{\textsc{should}}
+\newcommand{\SHOULDNOT}{\textsc{should not}}
+\newcommand{\RECOMMENDED}{\textsc{recommended}}
+\newcommand{\MAY}{\textsc{may}}
+\newcommand{\OPTIONAL}{\textsc{optional}}
+
+\newpage
+
+\section{Introduction}
 
  The NSI Connection Service requires topology descriptions to do 
 pathfinding. In order to do that some representation of the topology is required. 
@@ -29,22 +179,22 @@ the distribution requirements, some possible solutions and a recommended solutio
 for the short-term and also for the longer term\label{h.15n4tpv97j8w}
 
 
-\subsection{Representation of Network Topologies}
+\section{Representation of Network Topologies}
 
  In order to use the NSI, some form of topology representation 
 is required. An introduction to this representation and the issues involved in 
 creating network representations for the NSI is described below. A diagram that 
-provides some generic insight into NSI Topology is provided in figure 1.
+provides some generic insight into NSI Topology is provided in figure~\ref{fig:ndgf}.
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=390pt, height=159pt]{NSITopologyService-fig001.png}
-\caption{Abstract view of an example NSI Topology}
+\caption{Abstract view of an example NSI Topology}\label{fig:ndgf}
 \end{center}
 \end{figure}
 
 
-\subsubsection{Introduction to concept of STPs}
+\subsection{Introduction to concept of STPs}
 
  The basic network topology for the Network Service Interface (NSI) 
 consists of networks, points and connections. The NSI can be used to request a 
@@ -56,7 +206,7 @@ example is the connection point between the network on the edge of the SARA netw
 which connects to the Netherlight network.\label{h.htn600ljqx1v}
 
 
-\subsubsection{Identifying STPs in a request}
+\subsection{Identifying STPs in a request}
 
  The STPs in the Network Topology generally have two different 
 roles:
@@ -83,7 +233,7 @@ makes the distribution process much simpler.
 network, as well as the connection points within those respective networks.
 
 
-\subsubsection{Explicit routing using STPs}
+\subsection{Explicit routing using STPs}
 
  In a regular request only the source and destination STPs and 
 their networks are specified. The selected path between those STPs is left to the 
@@ -104,7 +254,7 @@ to use uni-directional path elements, to avoid ambiguity in the path direction
 (the uni-directionality of the ERO implicitly defines the direction).\label{h.4s5qtlwb3csi}
 
 
-\subsubsection{Requirements for Topology Descriptions}
+\subsection{Requirements for Topology Descriptions}
 
  Taking the description above into account, and with the general 
 idea of the Network Service Interface in mind, we come to the following requirements 
@@ -133,7 +283,7 @@ network (subtopologies), or multihoming scenarios;
 in an ERO should be unambiguous.\label{h.72kynww9xxpz}
 
 
-\subsubsection{Proposal}
+\subsection{Proposal}
 
  To satisfy the unambiguity and flexibility requirements, we propose 
 to describe STPs as two unidirectional Ports, since these have a single direction, 
@@ -162,10 +312,10 @@ tuple as source and destination:
  \textbf{(Topology ID, source PortGroup ID, sink PortGroup ID)}
 
 
-\subsection{Topology Description Syntax}
+\section{Topology Description Syntax}
 
 
-\subsubsection{STP Identifiers}
+\subsection{STP Identifiers}
 
  A source or destination of a connection reqest is identified by 
 the Topology identifier and two unidirectional Ports or PortGroups. Each of these 
@@ -183,7 +333,7 @@ the year component can be added.}, and the local component, A1 defined by the or
 network. \label{h.nk6ov0u4wctm}
 
 
-\subsubsection{STP Groups}
+\subsection{STP Groups}
 
  Endpoints in a network often have a technology label associated 
 with them, for example VLANs or wavelenghts. Rather than describing each of these 
@@ -208,7 +358,7 @@ will allow the pathfinder to select a VLAN on that specific endpoint, and return
 it to the user, using the query component.\label{h.p5scbjtwxk7s}
 
 
-\subsubsection{DTOX Syntax}
+\subsection{DTOX Syntax}
 
  Version 1 of the NSI Connection Service specification left the 
 topology definition out of scope. This has left a huge gap on the operational side, 
@@ -256,64 +406,65 @@ connectivity information necessary to do path calculations between domains.
 
  The NSI topology representation will make use the NML topology 
 representation as much as possible to build on standardized work in that group. 
-This will be extended with some NSI specific terminology as shown in Figure 1.
+This will be extended with some NSI specific terminology as shown in Figure~\ref{fig:ndgf}.
 
+\begin{table}
+  \begin{center}
 
-\begin{longtable}{|p{1.939in}|p{2.443in}|p{0.059in}|p{0.059in}|}
+  \begin{tabular}{|l|l|}
 \hline
 % ROW 1
-\begin{minipage}[t]{1.939in}\centering  \textit{NSI Concept}\end{minipage} & \begin{minipage}[t]{2.443in}\centering  \textit{Representation}\end{minipage}\\
+\textit{NSI Concept} & \textit{Representation}\\
 \hline
 % ROW 2
-\begin{minipage}[t]{0.059in}\centering  STP\end{minipage} & \begin{minipage}[t]{0.059in}\centering  2x 
-nml:Port / nml:BidirectionalPort\end{minipage}\\
+STP & 2x 
+\texttt{nml:Port} / \texttt{nml:BidirectionalPort}\\
 \hline
 % ROW 3
-\begin{minipage}[t]{1.939in}\centering  Connected To\end{minipage} & \begin{minipage}[t]{2.443in}\centering  nml:alias\end{minipage}\\
+Connected To & \texttt{nml:alias}\\
 \hline
 % ROW 4
-\begin{minipage}[t]{0.059in}\centering  NSNetwork\end{minipage} & \begin{minipage}[t]{0.059in}\centering  nml:Topology\end{minipage}\\
+NSNetwork & \texttt{nml:Topology}\\
 \hline
 % ROW 5
-\begin{minipage}[t]{1.939in}\centering  Has STP\end{minipage} & \begin{minipage}[t]{2.443in}\centering  nml:hasPort\end{minipage}\\
+Has STP & \texttt{nml:hasPort}\\
 \hline
 % ROW 6
-\begin{minipage}[t]{0.059in}\centering  Located at\end{minipage} & \begin{minipage}[t]{0.059in}\centering  nml:locatedAt\end{minipage}\\
+Located at & \texttt{nml:locatedAt}\\
 \hline
 % ROW 7
-\begin{minipage}[t]{1.939in}\centering  Location\end{minipage} & \begin{minipage}[t]{2.443in}\centering  nml:Location\end{minipage}\\
+Location & \texttt{nml:Location}\\
 \hline
 % ROW 8
-\begin{minipage}[t]{0.059in}\centering  GPS coords\end{minipage} & \begin{minipage}[t]{0.059in}\centering  nml:lat, 
-nml:long\end{minipage}\\
+GPS coords & \texttt{nml:lat}, 
+\texttt{nml:long}\\
 \hline
 % ROW 9
-\begin{minipage}[t]{1.939in}\centering  NSA\end{minipage} & \begin{minipage}[t]{2.443in}\centering  nsi:NSA\end{minipage}\\
+NSA & \texttt{nsi:NSA}\\
 \hline
 % ROW 10
-\begin{minipage}[t]{0.059in}\centering  Network managed by NSA\end{minipage} & \begin{minipage}[t]{0.059in}\centering  nsi:managedBy\end{minipage}\\
+Network managed by NSA & \texttt{nsi:managedBy}\\
 \hline
 % ROW 11
-\begin{minipage}[t]{1.939in}\centering  Admin Contact\end{minipage} & \begin{minipage}[t]{2.443in}\centering  nsi:adminContact\end{minipage}\\
+Admin Contact & \texttt{nsi:adminContact}\\
 \hline
 % ROW 12
-\begin{minipage}[t]{0.059in}\centering  Provider endpoint URL\end{minipage} & \begin{minipage}[t]{0.059in}\centering  nsi:csProviderEndpoint\end{minipage}\\
+Provider endpoint URL & \texttt{nsi:csProviderEndpoint}\\
 \hline
 % ROW 13
-\begin{minipage}[t]{1.939in}\centering  Control-plane connections\end{minipage} & \begin{minipage}[t]{2.443in}\centering  nsi:peersWith\end{minipage}\\
+Control-plane connections & \texttt{nsi:peersWith}\\
 \hline
-\end{longtable}
+\end{tabular}
+\caption{Relation of NSI and NML terminology}\label{tab:nsi-nml}
+  \end{center}
+\end{table}
 
-\begin{center}
- Figure 1 Relation of NSI and NML terminology
-\end{center}
 
-
-\subsubsection{Topology Description Example}
+\subsection{Topology Description Example}
 
  A simple example NSI Network topology description is provided 
-below. This example describes only the NDGF network as depicted in Figure 1. The 
-complete topology description for Figure 1 is available in Appendix A.
+below. This example describes only the NDGF network as depicted in Figure~\ref{fig:ndgf}. The 
+complete topology description for Figure~\ref{fig:ndgf} is available in Appendix~\ref{app:A}.
 
 \begin{verbatim}
   ndgf:NordicDataGridFacility a nml:Topology ;
@@ -361,16 +512,16 @@ the NSI interface can be reached, and who actually maintain the NSA.
 us to quickly create stunning visualizations using Google Earth.\label{h.xynx25fm6som}
 
 
-\subsubsection{Subtopologies}
+\subsection{Subtopologies}
 
  A topology can be further subdivided into subtopologies if required. 
 If for example NORDUnet decides to split their USA and Scandinavian networks, we 
-end up with a topology such as shown in figure 2.
+end up with a topology such as shown in figure~\ref{fig:ndgf2}.
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=403pt, height=248pt]{NSITopologyService-fig002.png}
-\caption{An example topology where Nordunet uses subtopologies}
+\caption{An example topology where Nordunet uses subtopologies}\label{fig:ndgf2}
 \end{center}
 \end{figure}
 
@@ -381,7 +532,7 @@ makes a new topology file available with subtopologies. The description of the
 new NORDUnet topology is given at the end of Appendix A.\label{h.ikfi9yd4mu6x}
 
 
-\subsection{Distribution of NSI Topology}
+\section{Distribution of NSI Topology}
 
  Some form of Topology distribution is required in order for an 
 inter-domain NSI network to function. In NSI 1.0 this process was performed out-of-band, 
@@ -389,7 +540,7 @@ mostly through e-mail. For NSI 2.0 we take the opportunity to define an NSI Topo
 Service for NSI topology exchange, which can support the NSI Connection Service.\label{h.c2129mkn366h}
 
 
-\subsubsection{Transport and Service plane relationship}
+\subsection{Transport and Service plane relationship}
 
  The NSI Connection Service is implemented on Network Service Agents 
 (NSAs), which together form a network and tree-like structure. This graph represents 
@@ -402,7 +553,7 @@ The messaging between the NSAs will happen on the
 service plane, which is completely separate from the transport plane.\label{h.dc66uw3zo12t}\label{h.ywjdj9kuwkou}
 
 
-\subsubsection{Elements of a Topology Exchange Mechanism}
+\subsection{Elements of a Topology Exchange Mechanism}
 
  There are three main elements of topology exchange: \label{h.u0b214m8krs}
 
@@ -436,7 +587,7 @@ from time to time. An update mechanism is thus required to inform other NSAs abo
 these kinds of events.\label{h.uzmy62lgeii3}
 
 
-\subsubsection{Topology Exchange Implementations}
+\subsection{Topology Exchange Implementations}
 
  The above mechanisms can be implemented in five different ways:
 
@@ -524,7 +675,7 @@ The end-result would be that all the NSAs have a
 global view of the topology, with only local interaction.\label{h.40nvr2if8zj}
 
 
-\subsubsection{Summarizing Topology Distribution}
+\subsection{Summarizing Topology Distribution}
 
  Above we have described five different topology distribution mechanisms, 
 from these five only the version controlled and peer-to-peer systems fit the requirements 
@@ -535,9 +686,9 @@ reasons we believe the best solution right now is a version controlled distribut
 system, and in time evolve to a peer-to-peer distribution protocol.\label{h.j5x37xsutbrh}
 
 
-\section*{Appendix A –Example Topology Description}
+\section*{Appendix A –Example Topology Description}\label{app:A}
 
- Below is the complete topology description of Figure 1 written 
+ Below is the complete topology description of Figure~\ref{fig:ndgf} written 
 in NML using the Notation3 syntax.
 
 \begin{verbatim}
