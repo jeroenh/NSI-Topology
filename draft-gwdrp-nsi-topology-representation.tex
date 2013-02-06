@@ -233,8 +233,14 @@ Names of relations are written in camel case and in italics (e.g. the \emph{hasN
 
 \section{NSI Topology Schema}\label{sec:syntax}
 
-The NSI topology schema describes the components required for the NSI Connection Service which are not part of the NML Base schema.
+The NSI topology schema describes the components required for the NSI Connection Service which are not part of the NML Base schema. 
 
+\subsection{Service Termination Point Definition} % (fold)
+\label{sub:service_termination_point_definition}
+
+\todo{}.
+
+% subsection service_termination_point_definition (end)
 \subsection{Service Termination Point Identifiers}
 
 A source or destination of a connection request in the NSI Connection Service is identified by 
@@ -287,6 +293,8 @@ representation. It builds as much as possible to build on standardized work in t
 An overview of the NSI concepts and the related representations are shown in table~\ref{tab:nsi-nml}.
 The definitions of the new concepts are defined below.
 
+The base namespace of the NSI Topology Extension schema is \path{http://schemas.ogf.org/nsi/2013/03/topology#}.
+
 \begin{table}
 \begin{center}
 
@@ -294,9 +302,9 @@ The definitions of the new concepts are defined below.
 \hline
      \textit{NSI Concept} &                               \textit{Representation}\\
 \hline
-                      STP & 2x \texttt{nml:Port} / \texttt{nml:BidirectionalPort}\\
+             STP Local ID & 2x \texttt{nml:Port} / \texttt{nml:BidirectionalPort}\\
 \hline
-             Connected To &                                    \texttt{nml:isAlias}\\
+             Connected To &                                  \texttt{nml:isAlias}\\
 \hline
                 NSNetwork &                                 \texttt{nml:Topology}\\
 \hline
@@ -423,8 +431,8 @@ below.
 
 \begin{lstlisting}[language=XML]
 @prefix nml:        <http://schemas.ogf.org/nml/2013/10/base#> .
-@prefix nmleth:     <http://schemas.ogf.org/nml/ethernet/2013/10#> .
-@prefix nsi:        <http://schemas.ogf.org/nsi/topology/2013/10#> .
+@prefix nmleth:     <http://schemas.ogf.org/nml/2013/10/ethernet#> .
+@prefix nsi:        <http://schemas.ogf.org/nsi/2013/03/topology#> .
 @prefix exa:       <urn:ogf:network:example.com:2013:> .
 @prefix exb:       <urn:ogf:network:example.org:2013:> .
   
@@ -522,7 +530,7 @@ The Netherlands \\
 Email: vdham@uva.nl \\
 \section{Acknowledgments}
 
-The author would like to thank the OGF NSI and GLIF DTOX groups for their input.
+The author would like to thank Roman Łapacz for writing the XML Schema document, and also the OGF NSI and GLIF DTOX groups for their input.
 
 
 \include{legal} 
