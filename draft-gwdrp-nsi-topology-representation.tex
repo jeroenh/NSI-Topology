@@ -213,7 +213,7 @@ The scope of this topology representation extension is limited to what the Conne
 \subsection{Context} % (fold)
 \label{sub:context}
 
-The NSI topology representation is defined based on the concepts defined in the NSI Connection Service version 2\cite{nsiv2}, the NSI Topology Service\cite{nsi-ts} and the Network Markup Language base schema version 1\cite{nml}.
+The NSI topology representation is defined based on the concepts defined in the NSI Framework document\cite{nsi-fw}, NSI Connection Service version 2\cite{nsiv2}, the NSI Topology Service\cite{nsi-ts} and the Network Markup Language base schema version 1\cite{nml}.
 
 % subsection context (end)
 \subsection{Notational Conventions}%
@@ -238,14 +238,13 @@ The NSI topology schema describes the components required for the NSI Connection
 \subsection{Service Termination Point Definition} % (fold)
 \label{sub:service_termination_point_definition}
 
-\todo{}.
+TODO.
 
 % subsection service_termination_point_definition (end)
 \subsection{Service Termination Point Identifiers}
 
 A source or destination of a connection request in the NSI Connection Service is identified by 
-the Topology identifier and two unidirectional \emph{Ports} or \emph{PortGroups}. Each of these 
-must be globally unique identifiers.
+the Topology identifier and two unidirectional \emph{Ports} or \emph{PortGroups}. The Topology identifier must be globally unique, and the Port or PortGroup identifiers must at least be locally unique such that combining them with a Topology identifiers yields a globally unique combination.
 
 A recommended way of constructing such an identifier is by using 
 the \path{urn:ogf:network} namespace, for example \path{urn:ogf:network:example.net:2013:A1}.
@@ -474,7 +473,7 @@ and finally two \emph{PortGroups} describing the Storage endpoint in the network
 with VLAN ranges.
 
  The \emph{Topology} element is used to hide internal connectivity, and 
-a full-mesh is assumed. By adding more NML topology information, it is possible 
+a full-mesh connectivity is assumed. By adding more NML topology information, it is possible 
 to include more detailed descriptions of the internal network.
 
 
@@ -534,7 +533,7 @@ The author would like to thank Roman Łapacz for writing the XML Schema document
 
 
 \include{legal} 
-\include{bibliography} 
+\include{bibliography-syntax} 
 
 \pagebreak
 \appendix
