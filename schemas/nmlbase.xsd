@@ -11,8 +11,8 @@
 --> 
 
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="http://schemas.ogf.org/nml/2012/10/base#"
-           xmlns:nml="http://schemas.ogf.org/nml/2012/10/base#"
+           targetNamespace="http://schemas.ogf.org/nml/2013/03/base#"
+           xmlns:nml="http://schemas.ogf.org/nml/2013/03/base#"
            elementFormDefault="qualified">
 
 
@@ -79,10 +79,10 @@
     <xs:attribute  name="type"  use="required">
       <xs:simpleType>
         <xs:restriction base="xs:string">
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#hasInboundPort"/>
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#hasOutboundPort"/>
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#hasService"/>
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#isAlias"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#hasInboundPort"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#hasOutboundPort"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#hasService"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#isAlias"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -126,9 +126,9 @@
     <xs:attribute  name="type"  use="required">
       <xs:simpleType>
         <xs:restriction base="xs:string">
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#isAlias"/>
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#isSerialCompoundLink"/>
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#next"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#isAlias"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#isSerialCompoundLink"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#next"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -172,10 +172,10 @@
     <xs:attribute  name="type"  use="required">
       <xs:simpleType>
         <xs:restriction  base="xs:string">
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#hasService"/>
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#isAlias"/>
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#isSink"/>
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#isSource"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#hasService"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#isAlias"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#isSink"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#isSource"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -219,10 +219,10 @@
     <xs:attribute  name="type"  use="required">
       <xs:simpleType>
         <xs:restriction  base="xs:string">
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#hasInboundPort"/>
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#hasOutboundPort"/>
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#hasService"/>
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#isAlias"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#hasInboundPort"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#hasOutboundPort"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#hasService"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#isAlias"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -271,10 +271,10 @@
     <xs:attribute  name="type"  use="required">
       <xs:simpleType>
         <xs:restriction  base="xs:string">
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#hasInboundPort"/>
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#hasOutboundPort"/>
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#isAlias"/>
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#providesLink"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#hasInboundPort"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#hasOutboundPort"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#isAlias"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#providesLink"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -308,9 +308,9 @@
     <xs:attribute  name="type"  use="required">
       <xs:simpleType>
         <xs:restriction  base="xs:string">
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#canProvidePort"/>
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#isAlias"/>
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#providesPort"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#canProvidePort"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#isAlias"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#providesPort"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -344,9 +344,9 @@
     <xs:attribute  name="type"  use="required">
       <xs:simpleType>
         <xs:restriction  base="xs:string">
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#canProvidePort"/>
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#isAlias"/>
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#providesPort"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#canProvidePort"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#isAlias"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#providesPort"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -393,8 +393,8 @@
     <xs:attribute  name="type"  use="required">
       <xs:simpleType>
         <xs:restriction  base="xs:string">
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#isAlias"/>
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#isSerialCompoundLink"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#isAlias"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#isSerialCompoundLink"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -436,9 +436,9 @@
     <xs:attribute  name="type"  use="required">
       <xs:simpleType>
         <xs:restriction  base="xs:string">
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#isAlias"/>
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#isSink"/>
-          <xs:enumeration  value="http://schemas.ogf.org/nml/2012/10/base#isSource"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#isAlias"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#isSink"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nml/2013/03/base#isSource"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>

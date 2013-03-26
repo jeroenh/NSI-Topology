@@ -13,7 +13,7 @@
 # ##############################################################
 
 default namespace nml = 
-    "http://schemas.ogf.org/nml/2012/10/base"
+    "http://schemas.ogf.org/nml/2013/03/base"
 
 include "nmltypes.rnc"
 
