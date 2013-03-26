@@ -319,7 +319,7 @@ The base namespace of the NSI Topology Extension schema is \path{http://schemas.
 \hline
                       NSA &                                      \texttt{nsi:NSA}\\
 \hline
-   Network managed by NSA &                                \texttt{nsi:managedBy}\\
+    NSA manages NSNetwork &                                  \texttt{nsi:manages}\\
 \hline
             Admin Contact &                             \texttt{nsi:adminContact}\\
 \hline
@@ -378,22 +378,22 @@ Defined relations are:
 
 % subsubsection admincontact (end)
 
-\subsubsection{managedBy}% (fold)
-\label{rel:managedBy}
+\subsubsection{manages}% (fold)
+\label{rel:manages}
 
-\emph{managedBy} relates an \emph{NSA} to a \emph{Topology} to define that the \emph{NSA} can take requests for that \emph{Topology}.
+\emph{manages} relates an \emph{NSA} to a \emph{Topology} to define that the \emph{NSA} can take requests for that \emph{Topology}.
 
 Allowed relations are:
 \begin{itemize}
-    \item \nmlrelation{Network Object}{*}{managedBy}{*}{NSA}
+    \item \nmlrelation{NSA}{*}{manages}{*}{Network Object}
 \end{itemize}
 
 Defined relations are:
 \begin{itemize}
-    \item \nmlrelation{Topology}{1}{managedBy}{1}{NSA}
+    \item \nmlrelation{NSA}{1}{managesy}{1}{Topology}
 \end{itemize}
 
-% subsubsection managedby (end)
+% subsubsection manages (end)
 
 \subsubsection{peersWith} % (fold)
 \label{ssub:peerswith}
@@ -456,8 +456,7 @@ exa:ExampleCom a nml:Topology ;
         nml:hasOutboundPort exa:eth0-out ;
         nml:hasInboundPort exa:eth0-in ;
         nml:hasOutboundPort exa:eth1-out ;
-        nml:hasInboundPort exa:eth1-in ;
-        nsi:managedBy exa:nsa .
+        nml:hasInboundPort exa:eth1-in .
 exa:location a nml:Location ;
         nml:lat "55.637"^^<http://www.w3.org/2001/XMLSchema#float> ;
         nml:long "12.641"^^<http://www.w3.org/2001/XMLSchema#float> .
@@ -476,7 +475,9 @@ exa:eth0-in a nml:PortGroup ;
         nmleth:vlans "1780-1783" .
 
 exb:nsa a nsi:NSA ;
-      nsi:cs2ProviderEndpoint "http://nsa.example.org"
+      nsi:cs2ProviderEndpoint "http://nsa.example.org" ;
+      nsi:manages exa:ExampleCom .
+      
 \end{lstlisting}
 
 
@@ -577,6 +578,7 @@ The author would like to thank Roman Łapacz for writing the XML Schema document
 %           nml:hasOutboundPort ndgf:ndgf-storage ;
 %           nml:hasInboundPort ndgf:storage-ndgf ;
 %           nsi:managedBy ndgf:nsa .
+% NOTE This is outdated.
 %   ndgf:location a nml:Location ;
 %           nml:lat "55.637"^^<http://www.w3.org/2001/XMLSchema#float> ;
 %           nml:long "12.641"^^<http://www.w3.org/2001/XMLSchema#float> .
