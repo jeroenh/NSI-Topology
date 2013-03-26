@@ -94,6 +94,7 @@
                     <rdf:Description rdf:about="http://schemas.ogf.org/nml/2013/03/base#LinkGroup"/>
                     <rdf:Description rdf:about="http://schemas.ogf.org/nml/2013/03/base#Port"/>
                     <rdf:Description rdf:about="http://schemas.ogf.org/nml/2013/03/base#PortGroup"/>
+                    <rdf:Description rdf:about="http://schemas.ogf.org/nml/2013/03/base#SwitchingService"/>
                 </owl:unionOf>
             </owl:Class>
         </rdfs:domain>

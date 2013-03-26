@@ -287,6 +287,7 @@
         <xs:sequence>
           <xs:element  name="Relation"  type="nml:SwitchingServiceRelationType"  minOccurs="0"  maxOccurs="unbounded"/>
         </xs:sequence>
+        <xs:attribute  name="encoding"       type="xs:anyURI"   use="optional"/>
         <xs:attribute  name="labelSwapping"  type="xs:boolean"  use="optional"/>
       </xs:extension>
     </xs:complexContent>
