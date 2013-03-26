@@ -238,7 +238,10 @@ The NSI topology schema describes the components required for the NSI Connection
 \subsection{Service Termination Point Definition} % (fold)
 \label{sub:service_termination_point_definition}
 
-TODO.
+A prerequisite for an Service Termination Point (STP) is the existence of a physical connection into a Network. This pre-existing capability (typically made up of a physical port on a Network) can be advertized to an Network Service Agent (NSA). Note that the choice about which resources to advertize is subject to local policy. Once advertized, these capabilities may be used by the path-finding function of the NSA.
+
+STPs are advertized as `capabilities' to the NSA, i.e. they are not instantiated resources, but rather capabilities available for use in creating a Network Service. For example, this would include advertizing that a VLAN id 30 is available for use. When the NSA wishes to instantiate VLAN 30, this is signaled to the NRM and the VLAN 30 instance is created. Both STP capabilities and STP instances are represented in the NSI Service Plane with STP identifiers.
+
 
 % subsection service_termination_point_definition (end)
 \subsection{Service Termination Point Identifiers}
@@ -248,7 +251,6 @@ the Topology identifier and two unidirectional \emph{Ports} or \emph{PortGroups}
 
 A recommended way of constructing such an identifier is by using 
 the \path{urn:ogf:network} namespace, for example \path{urn:ogf:network:example.net:2013:A1}.
-
 This identifier has three components: the prefix, \path{urn:ogf:network} 
 which describes that it is a network identifier, the authoring namespace, \path{example.net:2013} 
 which is the DNS name and a (at least) year to make a globally unique prefix\footnote{  
@@ -413,11 +415,23 @@ Defined relations are:
 \subsection{Attributes}
 \label{sub:attributes}
 
-\subsubsection{csProviderEndpoint} % (fold)
-\label{ssub:csproviderendpoint}
+\subsubsection{discoveryEndpoint} % (fold)
+\label{ssub:discoveryendpoint}
 
-\emph{csProviderEndpoint} defines the URL at which the webservice for the NSI Connection Service can be reached.
-% subsubsection csproviderendpoint (end)
+\emph{discoveryEndpoint} defines the URL at which the webservice for the NSI Discovery Service can be reached.
+% subsubsection discoveryendpoint (end)
+
+\subsubsection{cs1ProviderEndpoint} % (fold)
+\label{ssub:cs1providerendpoint}
+
+\emph{cs1ProviderEndpoint} defines the URL at which the webservice for the NSI Connection Service version 1 can be reached.
+% subsubsection cs1providerendpoint (end)
+
+\subsubsection{cs2ProviderEndpoint} % (fold)
+\label{ssub:cs2providerendpoint}
+
+\emph{cs2ProviderEndpoint} defines the URL at which the webservice for the NSI Connection Service version 2 can be reached.
+% subsubsection cs1providerendpoint (end)
 % subsection nsi_topology_representation (end)
 
 
@@ -462,7 +476,7 @@ exa:eth0-in a nml:PortGroup ;
         nmleth:vlans "1780-1783" .
 
 exb:nsa a nsi:NSA ;
-      nsi:csProviderEndpoint "http://nsa.example.org"
+      nsi:cs2ProviderEndpoint "http://nsa.example.org"
 \end{lstlisting}
 
 
