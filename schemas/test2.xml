@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nml:Topology xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://schemas.ogf.org/nsi/topology/2013/10# nsi-ext.xsd"
+              xsi:schemaLocation="http://schemas.ogf.org/nsi/2013/04/topology#nsi-ext.xsd"
               xmlns:nml="http://schemas.ogf.org/nml/2012/10/base#"
-              xmlns:nsi="http://schemas.ogf.org/nsi/topology/2013/10#"
+              xmlns:nsi="http://schemas.ogf.org/nsi/2013/04/topology#"
               xmlns:vc="urn:ietf:params:xml:ns:vcard-4.0"
               id="urn:ogf:network:example.net:2012:org:nsi-test"
               version="2013-01-25T12:11:12">
 
 
   <nml:Topology id="urn:ogf:network:example.net:2012:org:nsi-test:topoA">
-      <nsi:Relation type="http://schemas.ogf.org/nsi/topology/2013/10#managedBy">
+      <nsi:Relation type="http://schemas.ogf.org/nsi/2013/04/topology#managedBy">
         <nsi:Nsa id="urn:ogf:network:example.net:2012:org:nsi-test:nsaX"/>
     </nsi:Relation>
   </nml:Topology>
 
 
   <nml:Topology id="urn:ogf:network:example.net:2012:org:nsi-test:topoB">
-      <nsi:Relation type="http://schemas.ogf.org/nsi/topology/2013/10#managedBy">
+      <nsi:Relation type="http://schemas.ogf.org/nsi/2013/04/topology#managedBy">
         <nsi:Nsa id="urn:ogf:network:example.net:2012:org:nsi-test:nsaY"/>
     </nsi:Relation>
   </nml:Topology>
@@ -30,7 +30,7 @@
       </vc:vcard>
     </nsi:adminContact>
     <nsi:csProviderEndPoint>http://nsi.org/example/NSA/1</nsi:csProviderEndPoint>
-    <nsi:Relation type="http://schemas.ogf.org/nsi/topology/2013/10#peersWith">
+    <nsi:Relation type="http://schemas.ogf.org/nsi/2013/04/topology#peersWith">
       <nsi:Nsa id="urn:ogf:network:example.net:2012:org:nsi-test:nsaY"/>
     </nsi:Relation>
   </nsi:Nsa>
@@ -95,7 +95,7 @@
     </nsi:adminContact>
 
     <nsi:csProviderEndPoint>http://nsi.org/example/NSA/2</nsi:csProviderEndPoint>
-    <nsi:Relation type="http://schemas.ogf.org/nsi/topology/2013/10#peersWith">
+    <nsi:Relation type="http://schemas.ogf.org/nsi/2013/04/topology#peersWith">
       <nsi:Nsa id="urn:ogf:network:example.net:2012:org:nsi-test:nsaX"/>
     </nsi:Relation>
   </nsi:Nsa>

@@ -10,13 +10,13 @@
 --> 
 
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="http://schemas.ogf.org/nsi/topology/2013/10#"
-           xmlns:nsi="http://schemas.ogf.org/nsi/topology/2013/10#"
-           xmlns:nml="http://schemas.ogf.org/nml/2012/10/base#"
+           targetNamespace="http://schemas.ogf.org/nsi/2013/04/topology#"
+           xmlns:nsi="http://schemas.ogf.org/nsi/2013/04/topology#"
+           xmlns:nml="http://schemas.ogf.org/nml/2013/03/base#"
            elementFormDefault="qualified">
 
   <xs:import schemaLocation="nmlbase.xsd" 
-             namespace="http://schemas.ogf.org/nml/2012/10/base#"/>
+             namespace="http://schemas.ogf.org/nml/2013/03/base#"/>
 
 
   <xs:complexType name="NsaRelationType">
@@ -26,8 +26,8 @@
     <xs:attribute  name="type"  use="required">
       <xs:simpleType>
         <xs:restriction  base="xs:string">
-          <xs:enumeration  value="http://schemas.ogf.org/nsi/topology/2013/10#managedBy"/>
-          <xs:enumeration  value="http://schemas.ogf.org/nsi/topology/2013/10#peersWith"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nsi/2013/04/topology#managedBy"/>
+          <xs:enumeration  value="http://schemas.ogf.org/nsi/2013/04/topology#peersWith"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
