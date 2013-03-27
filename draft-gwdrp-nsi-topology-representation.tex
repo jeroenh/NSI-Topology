@@ -1,5 +1,7 @@
 %!TEX TS-program = pdflatex
 
+% TODO: Fix example with service description outcome.
+
 %%%% Latex preamble and page formatting %%%%
 
 \documentclass[12pt]{article}  % larger font to compensate for long lines with fullpage
@@ -323,7 +325,7 @@ The base namespace of the NSI Topology Extension schema is \path{http://schemas.
 \hline
             Admin Contact &                             \texttt{nsi:adminContact}\\
 \hline
-    Provider endpoint URL &                       \texttt{nsi:csProviderEndpoint}\\
+             NSI Services &                                  \texttt{nsi:Service}\\
 \hline
 Control-plane connections &                                \texttt{nsi:peersWith}\\
 \hline
@@ -338,25 +340,43 @@ Control-plane connections &                                \texttt{nsi:peersWith
 \subsubsection{NSA}% (fold)
 \label{class:nsa}
 
-An NSA represents a Network Service Agent which can accept Connection Service requests and manages a network.
+An \emph{NSA} object represents a Network Service Agent which can accept Connection Service requests and manages a network.
 
 \emph{NSA} inherits from the NML \emph{Network Object}
 
 An \emph{NSA} may have the following relations:
 \begin{itemize}
   \item \emph{adminContact} to a vCard object describing contact details for its administrator
+  \item \emph{hasService} to a \emph{Service} object describing a service the NSA provides
 \end{itemize}
 
 An \emph{NSA} may have the following attributes:
 \begin{itemize}
-  \item \emph{csProviderEndPoint} to an NSI CS webservice URL endpoint
   \item \emph{id} to assign a persistent globally unique URI
   \item \emph{name} to assign a human readable string  
 \end{itemize}
 
+% subsection NSA (end)
+\subsubsection{Service}% (fold)
+\label{class:nsa}
+
+The NSI framework contains many different services, the details of these can be described using a \emph{Service} object. Further details of this object can be described using its attributes.
+
+\emph{Service} inherits from the NML \emph{Network Object}
+
+An \emph{Service} may have the following attributes:
+\begin{itemize}
+  \item \emph{describedBy} to point to a WADL file
+  \item \emph{id} to assign a persistent globally unique URI
+  \item \emph{link} to define the URL endpoint
+  \item \emph{name} to assign a human readable string  
+  \item \emph{type} to an NSI Service type
+\end{itemize}
+
+The values of the \emph{type} attribute \SHOULD{} be specified in a Grid Forum Documents (GFD), see also \cite{gfd-discovery-service}.
+% subsection NSA (end)
 
 
-% subsection node (end)
 \subsection{Relations}
 \label{sub:relations}
 
@@ -374,6 +394,22 @@ Allowed relations are:
 Defined relations are:
 \begin{itemize}
     \item \nmlrelation{NSA}{*}{adminContact}{*}{vCard}
+\end{itemize}
+
+% subsubsection admincontact (end)
+
+\label{ssub:hasService}
+
+\emph{hasService} is used to relate a \emph{Network Object} to an NSI service it provides, this service is described using a \emph{Service} object.
+
+Allowed relations are:
+\begin{itemize}
+    \item \nmlrelation{Network Object}{*}{hasService}{*}{Service}
+\end{itemize}
+
+Defined relations are:
+\begin{itemize}
+    \item \nmlrelation{NSA}{*}{hasService}{*}{Service}
 \end{itemize}
 
 % subsubsection admincontact (end)
@@ -415,23 +451,30 @@ Defined relations are:
 \subsection{Attributes}
 \label{sub:attributes}
 
-\subsubsection{discoveryEndpoint} % (fold)
-\label{ssub:discoveryendpoint}
+  \item \emph{describedBy} to point to a WADL file
+  \item \emph{link} to define the URL endpoint
+  \item \emph{type} to an NSI Service type
 
-\emph{discoveryEndpoint} defines the URL at which the webservice for the NSI Discovery Service can be reached.
-% subsubsection discoveryendpoint (end)
+\subsubsection{describedBy} % (fold)
+\label{ssub:describedby}
 
-\subsubsection{cs1ProviderEndpoint} % (fold)
-\label{ssub:cs1providerendpoint}
+\emph{describedBy} defines that a \emph{Service} is described by a WADL description\cite{w3-wadl} located at the URL defined.
 
-\emph{cs1ProviderEndpoint} defines the URL at which the webservice for the NSI Connection Service version 1 can be reached.
-% subsubsection cs1providerendpoint (end)
+% subsubsection describedby (end)
 
-\subsubsection{cs2ProviderEndpoint} % (fold)
-\label{ssub:cs2providerendpoint}
+\subsubsection{link} % (fold)
+\label{ssub:link}
 
-\emph{cs2ProviderEndpoint} defines the URL at which the webservice for the NSI Connection Service version 2 can be reached.
-% subsubsection cs1providerendpoint (end)
+\emph{link} defines the URL at which the webservice for the NSI service can be reached.
+
+% subsubsection link (end)
+
+\subsubsection{type} % (fold)
+\label{ssub:type}
+
+\emph{type} defines the type of the \emph{Service} using an identifier which \SHOULD{} be defined in a GFD, see also \cite{gfd-discovery-service}.
+% subsubsection type (end)
+
 % subsection nsi_topology_representation (end)
 
 
