@@ -484,15 +484,13 @@ Defined relations are:
 
  A simple example NSI Network topology description is provided 
 below. 
-% This example describes only the NDGF network as depicted in Figure~\ref{fig:ndgf}. The 
-% complete topology description for Figure~\ref{fig:ndgf} is available in Appendix~\ref{app:A}.
 
 \begin{lstlisting}[language=XML]
 @prefix nml:        <http://schemas.ogf.org/nml/2013/10/base#> .
 @prefix nmleth:     <http://schemas.ogf.org/nml/2013/10/ethernet#> .
 @prefix nsi:        <http://schemas.ogf.org/nsi/2013/03/topology#> .
-@prefix exa:       <urn:ogf:network:example.com:2013:> .
-@prefix exb:       <urn:ogf:network:example.org:2013:> .
+@prefix exa:        <urn:ogf:network:example.com:2013:> .
+@prefix exb:        <urn:ogf:network:example.org:2013:> .
   
 exa:ExampleCom a nml:Topology ;
         nml:version "2013012301" ;
@@ -502,26 +500,38 @@ exa:ExampleCom a nml:Topology ;
         nml:hasInboundPort exa:eth0-in ;
         nml:hasOutboundPort exa:eth1-out ;
         nml:hasInboundPort exa:eth1-in .
+
 exa:location a nml:Location ;
         nml:lat "55.637"^^<http://www.w3.org/2001/XMLSchema#float> ;
         nml:long "12.641"^^<http://www.w3.org/2001/XMLSchema#float> .
+
 exa:nsa a nsi:NSA ;
         nsi:csProviderEndpoint "http://nsa.example.com/" ;
-        nsi:peersWith sara:nsa .
+        nsi:peersWith exb:nsa .
+
 exa:eth0-out a nml:PortGroup ;
         nmleth:vlans "1780-1783" ;
         nml:isAlias exb:if0-in .
+
 exa:eth0-in a nml:PortGroup ;
         nmleth:vlans "1780-1783" ;
         nml:isAlias exb:if0-out .
+
 exa:eth0-out a nml:PortGroup ;
         nmleth:vlans "1780-1783" .
+
 exa:eth0-in a nml:PortGroup ;
         nmleth:vlans "1780-1783" .
 
 exb:nsa a nsi:NSA ;
       nsi:cs2ProviderEndpoint "http://nsa.example.org" ;
-      nsi:manages exa:ExampleCom .
+      nsi:manages exb:ExampleOrg ;
+      nsi:peersWith exa:nsa .
+
+exa:disc-serv a nsi:Service ;
+    nsi:link "https://nsa.example.com/discovery/services/discovery";
+    nsi:providedBy exa:nsa;
+    nsi:describedBy "http://nsa2.example.org/discovery/wadl" .
       
 \end{lstlisting}
 
@@ -543,25 +553,6 @@ the NSI interface can be reached, and who actually maintain the NSA.
  The \emph{Location} element has also proven to be quite useful in allowing 
 us to quickly create stunning visualizations using Google Earth.
 
-
-% \subsection{Subtopologies}
-% 
-%  A topology can be further subdivided into subtopologies if required. 
-% If for example NORDUnet decides to split their USA and Scandinavian networks, we 
-% end up with a topology such as shown in figure~\ref{fig:ndgf2}.
-% 
-% \begin{figure}[htbp]
-% \begin{center}
-% \includegraphics[width=403pt, height=248pt]{NSITopologyService-fig002.png}
-% \caption{An example topology where Nordunet uses subtopologies}\label{fig:ndgf2}
-% \end{center}
-% \end{figure}
-% 
-% 
-%  If described correctly, the other domains do not have to update 
-% their topologies or connections. NORDUnet just updates its version number, and 
-% makes a new topology file available with subtopologies. The description of the 
-% new NORDUnet topology is given at the end of Appendix A.
 
 \section{Security Considerations} % (fold)
 \label{sec:security_considerations}
@@ -600,165 +591,5 @@ The author would like to thank Roman Łapacz for writing the XML Schema document
 	\include{xmlschema}
 	\include{owlschema}
 
-% \section{Example Topology Description}\label{app:A}
-% 
-%  Below is the complete topology description of Figure~\ref{fig:ndgf} written 
-% in NML using the Notation3 syntax.
-% 
-% \begin{lstlisting}
-%   @prefix nml:        <http://schemas.ogf.org/nml/2013/10/base#> .
-%   @prefix nmleth:     <http://schemas.ogf.org/nml/ethernet/2013/10#> .
-%   @prefix nsi:        <http://schemas.ogf.org/nsi/2013/04/topology#> .
-%   @prefix ndgf:       <urn:ogf:network:ndgf.org:2013:> .
-%   @prefix nordunet:   <urn:ogf:network:nordu.net:2013:> .
-%   @prefix nl:         <urn:ogf:network:netherlight.net:2010:> .
-%   @prefix sara:       <urn:ogf:network:sara.nl:2011:> .
-% 
-%   ndgf:NordicDataGridFacility a nml:Topology ;
-%           nml:version "2011112901" ;
-%           nml:name "NDGF" ;
-%           nml:locatedAt ndgf:location ;
-%           nml:hasOutboundPort ndgf:dk-ndgf-nordunet ;
-%           nml:hasInboundPort ndgf:nordunet-dk-ndgf ;
-%           nml:hasOutboundPort ndgf:ndgf-storage ;
-%           nml:hasInboundPort ndgf:storage-ndgf ;
-%           nsi:managedBy ndgf:nsa .
-% NOTE This is outdated.
-%   ndgf:location a nml:Location ;
-%           nml:lat "55.637"^^<http://www.w3.org/2001/XMLSchema#float> ;
-%           nml:long "12.641"^^<http://www.w3.org/2001/XMLSchema#float> .
-%   ndgf:nsa a nsi:NSA ;
-%           nsi:csProviderEndpoint "http://nsa.ndgf.org/" .
-%   ndgf:dk-ndgf-nordunet a nml:PortGroup ;
-%           nmleth:vlans "1780-1783" ;
-%           nml:isAlias nordunet:dk-ndgf-nordunet .
-%   ndgf:nordunet-dk-ndgf a nml:PortGroup ;
-%           nmleth:vlans "1780-1783" ;
-%           nml:isAlias nordunet:nordunet-dk-ndgf .
-%   ndgf:ndgf-storage a nml:PortGroup ;
-%           nmleth:vlans "1780-1783" .
-%   ndgf:storage-ndgf a nml:PortGroup ;
-%           nmleth:vlans "1780-1783" .
-% 
-%   nordunet:Nordunet a nml:Topology ;
-%           nml:version "2013061801" ;
-%           nml:name "Nordunet" ;
-%           nml:hasOutboundPort nordunet:nordunet-dk-ndgf ;
-%           nml:hasOutboundPort nordunet:nordunet-surfnet-NYC ;
-%           nml:hasOutboundPort nordunet:nordunet-surfnet-AMS ;
-%           nml:hasInboundPort nordunet:dk-ndgf-nordunet ;
-%           nml:hasInboundPort nordunet:surfnet-NYC-nordunet ;
-%           nml:hasInboundPort nordunet:surfnet-AMS-nordunet .
-%   nordunet:nordunet-dk-ndgf a nml:PortGroup ;
-%           nmleth:vlans "1780-1783" ;
-%           nml:isAlias ndgf:nordunet-dk-ndgf .
-%   nordunet:dk-ndgf-nordunet a nml:PortGroup ;
-%           nmleth:vlans "1780-1783" ;
-%           nml:isAlias ndgf:dk-ndgf-nordunet .
-%   nordunet:nordunet-surfnet-AMS a nml:PortGroup ;
-%           nmleth:vlans "1780-1783" ;
-%           nml:isAlias nl:nordunet-surfnet-AMS .
-%   nordunet:nordunet-surfnet-NYC a nml:PortGroup ;
-%           nmleth:vlans "1780-1783" ;
-%           nml:isAlias nl:nordunet-surfnet-NYC .
-%   nordunet:surfnet-AMS-nordunet a nml:PortGroup ;
-%           nmleth:vlans "1780-1783" ;
-%           nml:isAlias nl:surfnet-AMS-nordunet .
-%   nordunet:surfnet-NYC-nordunet a nml:PortGroup ;
-%           nmleth:vlans "1780-1783" ;
-%           nml:isAlias nl:surfnet-NYC-nordunet .
-% 
-%   nl:NetherLight a nml:Topology ;
-%           nml:version "2011062101" ;
-%           nml:name "NetherLight" ;
-%           nml:hasOutboundPort nl:surfnet-NYC-nordunet ;
-%           nml:hasOutboundPort nl:surfnet-AMS-nordunet ;
-%           nml:hasOutboundPort nl:surfnet-SARA ;
-%           nml:hasInboundPort nl:nordunet-surfnet-NYC ;
-%           nml:hasInboundPort nl:nordunet-surfnet-AMS ;
-%           nml:hasInboundPort nl:SARA-surfnet .
-%   nl:nordunet-surfnet-AMS a nml:PortGroup ;
-%           nmleth:vlans "1780-1783" ;
-%           nml:isAlias nordunet:nordunet-surfnet-AMS .
-%   nl:nordunet-surfnet-NYC a nml:PortGroup ;
-%           nmleth:vlans "1780-1783" ;
-%           nml:isAlias nordunet:nordunet-surfnet-NYC .
-%   nl:SARA-surfnet a nml:PortGroup ;
-%           nmleth:vlans "1780-1783" ;
-%           nml:isAlias sara:SARA-surfnet .
-%   nl:surfnet-AMS-nordunet a nml:PortGroup ;
-%           nmleth:vlans "1780-1783" ;
-%           nml:isAlias nordunet:surfnet-AMS-nordunet .
-%   nl:surfnet-NYC-nordunet a nml:PortGroup ;
-%           nmleth:vlans "1780-1783" ;
-%           nml:isAlias nordunet:surfnet-NYC-nordunet .
-%   nl:surfnet-SARA a nml:PortGroup ;
-%           nmleth:vlans "1780-1783" ;
-%           nml:isAlias sara:surfnet-SARA .
-% 
-% 
-%   sara:SARA a nml:Topology ;
-%           nml:version "2010072401" ;
-%           nml:name "SARA" ;
-%           nml:hasOutboundPort sara:SARA-surfnet ;
-%           nml:hasInboundPort sara:surfnet-SARA .
-%   sara:SARA-surfnet a nml:PortGroup ;
-%           nmleth:vlans "1780-1783" ;
-%           nml:isAlias nl:SARA-surfnet .
-%   sara:surfnet-SARA a nml:PortGroup ;
-%           nmleth:vlans "1780-1783" ;
-%           nml:isAlias nl:surfnet-SARA .
-% \end{lstlisting}
-% 
-% 
-%  An example of an updated topology for NorduNet with subtopologies. 
-% This new topology does not require any changes on the other network topologies.
-% 
-% \begin{verbatim}
-% nordunet:Nordunet a nml:Topology ;
-%         nml:version "2013080401" ;
-%         nml:name "Nordunet" ;
-%         nml:hasTopology nordunet:NordunetScandinavia ;
-%         nml:hasTopology nordunet:NordunetUSA .
-% 
-% nordunet:NordunetScandinavia a nml:Topology ;
-%         nml:version "2013080401" ;
-%         nml:name "Nordunet Scandinavia" ;
-%         nml:hasOutboundPort nordunet:nordunet-dk-ndgf ;
-%         nml:hasOutboundPort nordunet:nordunet-surfnet-AMS ;
-%         nml:hasOutboundPort nordunet:Scan-to-USA-trunk ;
-%         nml:hasInboundPort nordunet:dk-ndgf-nordunet ;
-%         nml:hasInboundPort nordunet:surfnet-AMS-nordunet ;
-%         nml:hasInboundPort nordunet:Scan-from-USA-trunk .
-% nordunet:dk-ndgf-nordunet a nml:PortGroup ;
-%         nml:isAlias ndgf:dk-ndgf-nordunet .
-% nordunet:nordunet-dk-ndgf a nml:PortGroup ;
-%         nml:isAlias ndgf:nordunet-dk-ndgf .
-% nordunet:nordunet-surfnet-AMS a nml:PortGroup ;
-%         nml:isAlias nl:nordunet-surfnet-AMS .
-% nordunet:Scan-from-USA-trunk a nml:PortGroup ;
-%         nml:isAlias nordunet:USA-to-Scan-trunk .
-% nordunet:Scan-to-USA-trunk a nml:PortGroup ;
-%         nml:isAlias nordunet:USA-from-Scan-trunk .
-% nordunet:surfnet-AMS-nordunet a nml:PortGroup ;
-%         nml:isAlias nl:surfnet-AMS-nordunet .
-% 
-% nordunet:NordunetUSA a nml:Topology ;
-%         nml:version "2013080401" ;
-%         nml:name "Nordunet USA" ;
-%         nml:hasOutboundPort nordunet:nordunet-surfnet-NYC ;
-%         nml:hasOutboundPort nordunet:USA-to-Scan-trunk ;
-%         nml:hasInboundPort nordunet:surfnet-NYC-nordunet ;
-%         nml:hasInboundPort nordunet:USA-from-Scan-trunk .
-% nordunet:nordunet-surfnet-NYC a nml:PortGroup ;
-%         nml:isAlias nl:nordunet-surfnet-NYC .
-% nordunet:surfnet-NYC-nordunet a nml:PortGroup ;
-%         nml:isAlias nl:surfnet-NYC-nordunet .
-% nordunet:USA-from-Scan-trunk a nml:PortGroup ;
-%         nml:isAlias nordunet:Scan-to-USA-trunk .
-% nordunet:USA-to-Scan-trunk a nml:PortGroup ;
-%         nml:isAlias nordunet:Scan-from-USA-trunk .
-% \end{verbatim}
-% 
 
 \end{document}
