@@ -204,7 +204,7 @@ pathfinding. In order to do that some representation of the topology is required
 Once represented, some form of topology distribution is also needed. This document 
 describes an extension of the Network Markup Language\cite{nml} to support the NSI Connection Service\cite{nsi-cs} and NSI Topology Service\cite{nsi-ts}.
 
-Section~\ref{sec:syntax} describes the NSI topology representation extension of the Network Markup Language base schema version 1. Only section~\ref{sec:syntax} and appendices~\ref{app:rdf} and~\ref{app:xml} are normative and considered part of the recommendation.
+Section~\ref{sec:syntax} describes the NSI topology representation extension of the Network Markup Language base schema version 1. Only section~\ref{sec:schema} and \ref{sec:syntax}, and appendices~\ref{app:owl} and~\ref{app:xml} are normative and considered part of the recommendation.
 
 \subsection{Scope}
 
@@ -233,7 +233,7 @@ Names of relations are written in camel case and in italics (e.g. the \emph{hasN
 
 
 
-\section{NSI Topology Schema}\label{sec:syntax}
+\section{NSI Topology Schema}\label{sec:schema}
 
 The NSI topology schema describes the components required for the NSI Connection Service which are not part of the NML Base schema. 
 
@@ -426,7 +426,7 @@ Allowed relations are:
 
 Defined relations are:
 \begin{itemize}
-    \item \nmlrelation{NSA}{1}{managesy}{1}{Topology}
+    \item \nmlrelation{NSA}{1}{manages}{1}{Topology}
 \end{itemize}
 
 % subsubsection manages (end)
@@ -479,6 +479,15 @@ Defined relations are:
 
 % subsection nsi_topology_representation (end)
 
+
+\section{Syntax} % (fold)
+\label{sec:syntax}
+
+The NSI topology representation is an extension of the Network Markup Language base schema version 1. As such it has both an XML and an OWL representation, defined in appendix~\ref{app:xml} and \ref{app:owl} respectively.
+
+The XML syntax is the  \RECOMMENDED{} NSI topology syntax. NSAs \MUST{} be able to parse the XML syntax, and \SHOULD{} be able to parse the OWL syntax.
+
+% section syntax (end)
 
 \section{NSI Topology Description Example}
 
