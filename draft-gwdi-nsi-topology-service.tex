@@ -208,7 +208,7 @@ can identify the Networks, and the connections between those Networks, the SDPs.
 It is not necessary to distribute all of the endpoints within the network, which 
 makes the distribution process much simpler.
 
-This means that a request to NSI must contain the source and destination 
+This means that an NSI Connection Service reservation request must contain the source and destination 
 network, as well as the connection points within those respective networks.
 
 
@@ -227,7 +227,7 @@ indication of the path that should be taken through the NSI Network.
 If the Path object contains a description of the complete path 
 end-to-end then this is simply a question of availability. However, problems can 
 arise if the path object only contains a single ``explicit route object''(ERO) 
-that it must touch. With the current NSI implementation and its bi-directional 
+that it must touch. With the current NSI implementation (v1) and its bi-directional 
 model, there is no way to know from which way to cross that ERO. The proposal is 
 to use uni-directional path elements, to avoid ambiguity in the path direction 
 (the uni-directionality of the ERO implicitly defines the direction).
@@ -289,7 +289,7 @@ tuple to identify a source or destination STP:
 
  \textbf{(Topology ID, source PortGroup ID, sink PortGroup ID)}
  
-\section{Introduction}
+\section{NSI Terminology}
 
  The NSI Connection Service requires topology descriptions to do 
 pathfinding. In order to do that some representation of the topology is required. 
@@ -300,7 +300,7 @@ implementation and a strategy for better long-term support.
  In the first section we describe what is necessary for the topology 
 to support, what kind of elements should be in there. In the next section we describe 
 the distribution requirements, some possible solutions and a recommended solution 
-for the short-term and also for the longer term\label{h.15n4tpv97j8w}
+for the short-term and also for the longer term
 
 
 \section{Distribution of NSI Topology}
@@ -308,7 +308,7 @@ for the short-term and also for the longer term\label{h.15n4tpv97j8w}
  Some form of Topology distribution is required in order for an 
 inter-domain NSI network to function. In NSI 1.0 this process was performed out-of-band, 
 mostly through e-mail. For NSI 2.0 we take the opportunity to define an NSI Topology 
-Service for NSI topology exchange, which can support the NSI Connection Service.\label{h.c2129mkn366h}
+Service for NSI topology exchange, which can support the NSI Connection Service.
 
 
 \subsection{Transport and Service plane relationship}
@@ -317,16 +317,16 @@ Service for NSI topology exchange, which can support the NSI Connection Service.
 (NSAs), which together form a network and tree-like structure. This graph represents 
 how reservation requests would propagate through the network, but not necessarily 
 reflects the transport-plane. One NSA may be an aggregation point for other NSAs, 
-not visible from the outside.\label{h.mtia1ajwgzmv}
+not visible from the outside.
 
 
 The messaging between the NSAs will happen on the 
-service plane, which is completely separate from the transport plane.\label{h.dc66uw3zo12t}\label{h.ywjdj9kuwkou}
+service plane, which is separated from the transport plane.
 
 
 \subsection{Elements of a Topology Exchange Mechanism}
 
- There are three main elements of topology exchange: \label{h.u0b214m8krs}
+ There are three main elements of topology exchange: 
 
 
 \paragraph{Bootstrapping Topology Exchange}
@@ -336,26 +336,26 @@ find each other, in order to communicate details about the network. So some form
 of bootstrapping is required, with initial synchronization between domains on both 
 the service plane and the transport plane, i.e. the NSAs of both domains must be 
 able to contact each other, and the details of transport plane connections between 
-them have to be synchronized as well.\label{h.fzohc79rts8y}
+them have to be synchronized as well.
 
 
 Initiating a transport plane connection between two 
 networks is not a frequent occurrence, and a longer process, involving out-of-band 
 (for NSI) contact. Part of that process can be that the networks also communicate 
-the access details for the NSAs, thus forming an NSA relationship.\label{h.30v92h80y7jj}
+the access details for the NSAs, thus forming an NSA relationship.
 
 
 \paragraph{Expanding the Topology Exchange}
 
  Once the neighboring (on the control-plane) NSAs have exchanged 
 details, they can also distribute details about the rest of the network, both the 
-control plane details and connectivity, but also some transport details.\label{h.c1dz1g10oju}
+control plane details and connectivity, but also some transport details.
 
 \paragraph{Update Mechanism}
 
  The transport network is not static, and links are added or removed 
 from time to time. An update mechanism is thus required to inform other NSAs about 
-these kinds of events.\label{h.uzmy62lgeii3}
+these kinds of events.
 
 
 \subsection{Topology Exchange Implementations}
@@ -369,7 +369,7 @@ demonstration was through a central maintainer. This maintainer collected all to
 information from the networks involved, gathered all the topology data and sent 
 out a topology file through e-mail. The network maintainers would than download 
 the attachment and insert it into their provisioning system. Updates to the topology 
-were all handled through the central maintainer, distributed through e-mail.\label{h.31tbtceozcoc}
+were all handled through the central maintainer, distributed through e-mail.
 
 
 While this system worked initially, it soon ran into 
@@ -385,7 +385,7 @@ This mechanism also still has a central maintainer, this also allows networks to
 manipulate their own topology information. The distribution mechanism is either 
 directly from the GitHub website, or through the git version control system itself. 
 The git system has the added advantage that it is a distributed version control 
-system, so it is not required to download directly from GitHub.\label{h.rtljwvhj8cbo}
+system, so it is not required to download directly from GitHub.
 
 
 Bootstrapping and updating all happens through the 
@@ -397,12 +397,12 @@ git system itself.
  The PerfSonar monitoring system suite also contains a service 
 for looking up information. This service uses a ``home Lookup Service''(hLS) where 
 metadata of information is registered, which is then uploaded into the ``global 
-Lookup Service''(gLS) (this can be cloud of services).\label{h.pg14lxc0zu6o}
+Lookup Service''(gLS) (this can be cloud of services).
 
 
 The retrieval of information happens by first querying 
 the gLS, then the relevant hLS, followed by the service where the actual information 
-is stored.\label{h.tjjrmby8htjk}
+is stored.
 
 
 Since topology information would be stored locally, 
@@ -422,28 +422,28 @@ between NSAs would not be necessary to disseminate global topology.
 
  A common way of distributing information is using the HTTP protocol. 
 The topology files would include links to topology description files, which would 
-allow other domains to directly fetch the topology description.\label{h.efkcsmt7dwgr}
+allow other domains to directly fetch the topology description.
 
 
 However, as with the Lookup Service, this requires 
-direct access between NSAs which may not be possible.\label{h.mbgns4xsvbt4}
+direct access between NSAs which may not be possible.
 
 
 \paragraph{A Peer-to-Peer Distribution Protocol}
 
  Another method is to define a new protocol for NSI topology distribution. 
 As explained above the protocol would only require a small set of primitives, and 
-would work directly between peering NSAs.\label{h.jo1it2zr3py}
+would work directly between peering NSAs.
 
 
 Once an NSA comes up, it contacts its neighbors to 
 request the topology information that they know about, and subscribes to future 
 topology updates. These updates are propogated in a peer-to-peer fashion through 
-the whole network.\label{h.3qkmh8hazvti}
+the whole network.
 
 
 The end-result would be that all the NSAs have a 
-global view of the topology, with only local interaction.\label{h.40nvr2if8zj}
+global view of the topology, with only local interaction.
 
 
 \subsection{Summarizing Topology Distribution}
@@ -454,7 +454,7 @@ that the NSI has, others require too much manual operation, or require globally
 reachable NSAs. The peer-to-peer system would be the best solution with minimal 
 interaction between systems, and no reliance on outside mechanisms. For practical 
 reasons we believe the best solution right now is a version controlled distribution 
-system, and in time evolve to a peer-to-peer distribution protocol.\label{h.j5x37xsutbrh}
+system, and in time evolve to a peer-to-peer distribution protocol.
 
 \section{Contributors}
 
