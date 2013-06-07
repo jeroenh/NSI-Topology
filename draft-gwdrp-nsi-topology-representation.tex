@@ -379,6 +379,12 @@ The values of the \emph{type} attribute \SHOULD{} be specified in a Grid Forum D
 
 \subsection{Relations}
 \label{sub:relations}
+\emph{Relation}s describe how different \emph{Network Object}s relate to each other, 
+typically to form a network topology description. 
+
+The \emph{hasService} and \emph{manages} relations are \emph{implicit} relations. All other relations are \emph{explicit}. 
+The distinction between implicit and explicit relations may be used by a syntax to 
+allow a more compact network description.
 
 
 \subsubsection{adminContact} % (fold)
@@ -451,16 +457,20 @@ Defined relations are:
 \subsection{Attributes}
 \label{sub:attributes}
 
-\begin{itemize}
-  \item \emph{describedBy} to point to a WADL file
-  \item \emph{link} to define the URL endpoint
-  \item \emph{type} to an NSI Service type
-\end{itemize}
+\emph{Attributes} are properties of an object. The following attributes have been defined in section~\ref{sub:classes}.
+
+\begin{tabular}{@{}p{0.25\textwidth}p{0.72\textwidth}}
+\textbf{Attribute} &                                                                                   \textbf{Class (section)}\\
+    
+ describedBy &  Service (\ref{class:Service})\\
+ link &  Service (\ref{class:Service})\\
+ type &  Service (\ref{class:Service})\\
+\end{tabular}
 
 \subsubsection{describedBy} % (fold)
 \label{ssub:describedby}
 
-\emph{describedBy} defines that a \emph{Service} is described by a WADL description\cite{w3-wadl} located at the URL defined.
+\emph{describedBy} defines that a \emph{Service} is described by a WADL\cite{w3-wadl} or WSDL\cite{w3-wsdl} description located at the defined URL.
 
 % subsubsection describedby (end)
 
@@ -485,63 +495,22 @@ Defined relations are:
 
 The NSI topology representation is an extension of the Network Markup Language base schema version 1. As such it has both an XML and an OWL representation, defined in appendix~\ref{app:xml} and \ref{app:owl} respectively.
 
-The XML syntax is the  \RECOMMENDED{} NSI topology syntax. NSAs \MUST{} be able to parse the XML syntax, and \SHOULD{} be able to parse the OWL syntax.
+The XML syntax is the \RECOMMENDED{} NSI topology syntax. An NSA \MUST{} publish its topology in the XML syntax and \MUST{} be able to parse the XML syntax, and \SHOULD{} be able to parse the OWL syntax.
 
 % section syntax (end)
 
 \section{NSI Topology Description Example}
 
  A simple example NSI Network topology description is provided 
-below. 
+below in XML.
 
-\begin{lstlisting}[language=XML]
-@prefix nml:        <http://schemas.ogf.org/nml/2013/10/base#> .
-@prefix nmleth:     <http://schemas.ogf.org/nml/2013/10/ethernet#> .
-@prefix nsi:        <http://schemas.ogf.org/nsi/2013/03/topology#> .
-@prefix exa:        <urn:ogf:network:example.com:2013:> .
-@prefix exb:        <urn:ogf:network:example.org:2013:> .
-  
-exa:ExampleCom a nml:Topology ;
-        nml:version "2013012301" ;
-        nml:name "exa" ;
-        nml:locatedAt exa:location ;
-        nml:hasOutboundPort exa:eth0-out ;
-        nml:hasInboundPort exa:eth0-in ;
-        nml:hasOutboundPort exa:eth1-out ;
-        nml:hasInboundPort exa:eth1-in .
+\lstinputlisting{example/nsi-topo-example.xml}
 
-exa:location a nml:Location ;
-        nml:lat "55.637"^^<http://www.w3.org/2001/XMLSchema#float> ;
-        nml:long "12.641"^^<http://www.w3.org/2001/XMLSchema#float> .
+The equivalent topology is also represented using the OWL format below.
 
-exa:nsa a nsi:NSA ;
-        nsi:csProviderEndpoint "http://nsa.example.com/" ;
-        nsi:peersWith exb:nsa .
+\lstinputlisting{example/nsi-topo-example.owl}
 
-exa:eth0-out a nml:PortGroup ;
-        nmleth:vlans "1780-1783" ;
-        nml:isAlias exb:if0-in .
 
-exa:eth0-in a nml:PortGroup ;
-        nmleth:vlans "1780-1783" ;
-        nml:isAlias exb:if0-out .
-
-exa:eth0-out a nml:PortGroup ;
-        nmleth:vlans "1780-1783" .
-
-exa:eth0-in a nml:PortGroup ;
-        nmleth:vlans "1780-1783" .
-
-exb:nsa a nsi:NSA ;
-      nsi:cs2ProviderEndpoint "http://nsa.example.org" ;
-      nsi:manages exb:ExampleOrg ;
-      nsi:peersWith exa:nsa .
-
-exa:disc-serv a nsi:Service ;
-    nsi:link "https://nsa.example.com/discovery/services/discovery";
-    nsi:providedBy exa:nsa;
-    nsi:describedBy "http://nsa2.example.org/discovery/wadl" .
-      
 \end{lstlisting}
 
 
