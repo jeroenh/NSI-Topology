@@ -29,7 +29,7 @@
         </nsi:Relation>
     </nsi:Service>
     
-    <nsi:Relation type="http://schemas.ogf.org/nsi/2013/09/topology#adminContact">
+    <nml:Relation type="http://schemas.ogf.org/nsi/2013/09/topology#adminContact">
       <vc:vcard>
         <vc:fn><vc:text>Example Adminstrator</vc:text></vc:fn>
         <vc:n>
@@ -71,7 +71,7 @@
           <vc:uri>geo:52.357,4.953</vc:uri>
         </vc:geo>
       </vc:vcard>
-    </nsi:Relation>    
+    </nml:Relation>    
     
     <nsi:Relation type="http://schemas.ogf.org/nsi/2013/09/topology#peersWith">
         <nsi:NSA id="urn:ogf:network:example.org:2013:nsa"/>

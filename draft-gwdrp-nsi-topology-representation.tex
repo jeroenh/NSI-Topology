@@ -1,6 +1,5 @@
 %!TEX TS-program = pdflatex
 
-% TODO: Fix example with service description outcome.
 
 %%%% Latex preamble and page formatting %%%%
 
@@ -70,10 +69,10 @@
 % The listing package has no Unicode support at all, but this a ugly way to get at least some latin-1 characters.
 \lstset{extendedchars=true,literate={ø}{{\o}}1 {É}{{\'E}}1 {è}{{\`e}}1}
 % \lstset{basicstyle=\ttfamily}
-\lstdefinelanguage[nml]{XML}[]{XML}{keywordsprefix={nml:}}
-\lstloadlanguages{XML,[nml]{XML}}
+\lstdefinelanguage[nsi]{XML}[]{XML}{keywordsprefix={nsi:}}
+\lstloadlanguages{XML,[nsi]{XML}}
 \lstset{
-  language=[nml]XML,
+  language=[nsi]XML,
   basicstyle=\scriptsize,
   breaklines=true,
   % backgroundcolor=\color{gray},
@@ -202,20 +201,32 @@ Connection Service.
  The NSI Connection Service requires topology descriptions to do 
 pathfinding. In order to do that some representation of the topology is required. 
 Once represented, some form of topology distribution is also needed. This document 
-describes an extension of the Network Markup Language\cite{nml} to support the NSI Connection Service\cite{nsi-cs} and NSI Topology Service\cite{nsi-ts}.
+describes an extension of the Network Markup Language\cite{GFD.206} to support the NSI Connection Service\cite{gfd-nsi-connection} and NSI Topology Service\cite{gfd-nsi-topo-serv}.
 
-Section~\ref{sec:syntax} describes the NSI topology representation extension of the Network Markup Language base schema version 1. Only section~\ref{sec:schema} and \ref{sec:syntax}, and appendices~\ref{app:owl} and~\ref{app:xml} are normative and considered part of the recommendation.
+Section~\ref{sec:nsi_topology_representation} describes the NSI topology representation extension of the Network Markup Language base schema version 1. Only section~\ref{sec:nsi_topology_representation} and \ref{sec:syntax}, and appendices~\ref{app:owl} and~\ref{app:xml} are normative and considered part of the recommendation.
 
 \subsection{Scope}
 
 The NSI topology representation is an extension of the Network Markup Language version 1. The NSI topology covers concepts relevant for supporting the Connection Service, which are outside of the scope of NML.
 
 The scope of this topology representation extension is limited to what the Connection Service requires.
+The NSI framework exists to provide users with an interface for inter-domain network requests. The topology service and representation have been defined to support the inter-domain communication between the different NSI actors. Creating and using inter-domain network connections happens in five steps:
+
+\begin{enumerate}
+    \item \emph{transport} The fundamental requirement for inter-domain communication is a connection on the transport plane between different domains.
+    \item \emph{coordination} The agents of two neighboring domains must be able to coordinate their actions regarding the use of the transport plane connection.
+    \item \emph{topology} To identify and use the connection on the transport plane, information and identifiers of this connection are required in topology descriptions.
+    \item \emph{dissemination} The knowledge about the topology must be shared and disseminated between the actors, so that the reachability is known throughout the whole network.
+    \item \emph{reservation} Actors with knowledge of this connection can communicate their requirements and create reservations for the connection.
+\end{enumerate}
+
+This document contains terminology which together with the identifier specification in \cite{GFD.202} can support the coordination phase. The identifiers and descriptions are then formalized in topology descriptions, for which a schema is defined in this document. The dissemination phase is explicitly out of scope of this document, see also \cite{gfd-nsi-topo-serv}. The reservation phase is where the NSI interactions occur, see also \cite{GFD.173}.
+
 
 \subsection{Context} % (fold)
 \label{sub:context}
 
-The NSI topology representation is defined based on the concepts defined in the NSI Framework document\cite{nsi-fw}, NSI Connection Service version 2\cite{nsiv2}, the NSI Topology Service\cite{nsi-ts} and the Network Markup Language base schema version 1\cite{nml}.
+The NSI topology representation is defined based on the concepts defined in the NSI Framework document\cite{GFD.173}, NSI Connection Service version 2\cite{gfd-nsi-connection}, the NSI Topology Service\cite{gfd-nsi-topo-serv} and the Network Markup Language base schema version 1\cite{GFD.206}.
 
 % subsection context (end)
 \subsection{Notational Conventions}%
@@ -235,7 +246,7 @@ Names of relations are written in camel case and in italics (e.g. the \emph{hasN
 
 \section{NSI Topology Schema}\label{sec:schema}
 
-The NSI topology schema describes the components required for the NSI Connection Service which are not part of the NML Base schema. 
+The NSI topology schema describes the components required for the NSI Connection Service which are not part of the NML Base schema. Below is an introduction to common NSI terminology related to topology.
 
 \subsection{Service Termination Point Definition} % (fold)
 \label{sub:service_termination_point_definition}
@@ -252,7 +263,7 @@ A source or destination of a connection request in the NSI Connection Service is
 the Topology identifier and two unidirectional \emph{Ports} or \emph{PortGroups}. The Topology identifier must be globally unique, and the Port or PortGroup identifiers must at least be locally unique such that combining them with a Topology identifiers yields a globally unique combination.
 
 A recommended way of constructing such an identifier is by using 
-the \path{urn:ogf:network} namespace, for example \path{urn:ogf:network:example.net:2013:A1}.
+the \path{urn:ogf:network} namespace\cite{GFD.202}, for example \path{urn:ogf:network:example.net:2013:A1}.
 This identifier has three components: the prefix, \path{urn:ogf:network} 
 which describes that it is a network identifier, the authoring namespace, \path{example.net:2013} 
 which is the DNS name and a (at least) year to make a globally unique prefix\footnote{  
@@ -270,7 +281,7 @@ available labels as individual STPs, we introduce the \emph{STP Group}, equivale
 an NML \emph{PortGroup}.
 
 An STP with a specific label can then be selected using the query 
-component syntax as specified in \cite{RFC3986}, so for example:
+component syntax as specified in \cite{rfc3986}, so for example:
 
 \path{urn:ogf:network:example.net:2013:A2?vlan=1781} is a way to phrase 
 a request to an STP with VLAN 1781 part of the STP Group identified by 
@@ -287,9 +298,14 @@ specific VLAN range available. A request with just that identifier as the destin
 will allow the pathfinder to select a VLAN on that specific endpoint, and return 
 it to the user, using the query component.
 
+\subsubsection{Inter-Domain Topology} % (fold)
+\label{ssub:interdomain_topology}
+
+% subsubsection interdomain_topology (end)
+
 
 \section{NSI Topology Representation} % (fold)
-\label{sub:nsi_topology_representation}
+\label{sec:nsi_topology_representation}
 
  The NSI topology representation is defined as an extension to the NML topology 
 representation. It builds as much as possible to build on standardized work in the NML group.
@@ -504,32 +520,29 @@ The XML syntax is the \RECOMMENDED{} NSI topology syntax. An NSA \MUST{} publish
  A simple example NSI Network topology description is provided 
 below in XML.
 
-\lstinputlisting{example/nsi-topo-example.xml}
+\lstinputlisting{examples/nsi-topo-example.xml}
 
 The equivalent topology is also represented using the OWL format below.
 
-\lstinputlisting{example/nsi-topo-example.owl}
-
-
-\end{lstlisting}
+\lstinputlisting{examples/nsi-topo-example.owl}
 
 
 
- The above example provides a minimal description to expose, 
-a \emph{Topology}, a \emph{Location}, an \emph{NSA}, two \emph{PortGroups} for the connection with Example.org, 
-and finally two \emph{PortGroups} describing the Storage endpoint in the network, all 
-with VLAN ranges.
 
- The \emph{Topology} element is used to hide internal connectivity, and 
+The above example provides a minimal description to expose, 
+an \emph{NSA}, a \emph{Location}, two \emph{Service}s, and a\emph{Topology}, with two \emph{PortGroups} for the connection with example.org domain.
+
+The \emph{NSA} element is the main description point of the network. Through the \emph{Service}s elements it describes how 
+the NSI different services can be reached, the peering with other domains, as well as the \emph{Topology} that is managed by the \emph{NSA}.
+
+
+The \emph{Topology} element is used to hide internal connectivity, and 
 a full-mesh connectivity is assumed. By adding more NML topology information, it is possible 
 to include more detailed descriptions of the internal network.
 
 
- The \emph{NSA} provides the management information for networks, how 
-the NSI interface can be reached, and who actually maintain the NSA.
-
- The \emph{Location} element has also proven to be quite useful in allowing 
-us to quickly create stunning visualizations using Google Earth.
+The \emph{Location} element has also proven to be quite useful in allowing 
+us to quickly create stunning visualizations using digital maps.
 
 
 \section{Security Considerations} % (fold)
@@ -538,7 +551,7 @@ us to quickly create stunning visualizations using Google Earth.
 
 There are important security concerns associated with the generation and distribution of network topology information. For example, ISPs frequently consider network topologies to be proprietary. We do not address these concerns in this document, but implementers are encouraged to consider the security implications of generating and distributing network topology information. 
 
-Implementers should be aware that the NML descriptions do not provide any guarantee regarding their integrity nor their authenticity. The NML documents also can not provide this for the identifiers contained in the documents. Implementers should use external means of verifying the authenticity of identifiers contained in the documents.
+Implementers should be aware that the NML descriptions and their NSI extensions do not provide any guarantee regarding their integrity nor their authenticity. The NML documents also can not provide this for the identifiers contained in the documents. Implementers should use external means of verifying the authenticity of identifiers contained in the documents.
 
 % section security_considerations (end)
 \section{Contributors}
@@ -558,7 +571,7 @@ The Netherlands \\
 Email: vdham@uva.nl \\
 \section{Acknowledgments}
 
-The author would like to thank Roman Łapacz for writing the XML Schema document, and also the OGF NSI and GLIF DTOX groups for their input.
+The author would like to thank Roman Łapacz and John MacAuley for creating the XML Schema document, and also the OGF NSI and GLIF DTOX groups for their input.
 
 
 \include{legal} 
