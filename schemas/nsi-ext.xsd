@@ -57,6 +57,7 @@
         <xs:sequence>
           <xs:group  ref="nsi:BaseNSAContent"/>
           <xs:element  name="Relation"  type="nsi:NSARelationType"   minOccurs="0"  maxOccurs="unbounded"/>
+          <xs:element ref="nml:Topology" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
