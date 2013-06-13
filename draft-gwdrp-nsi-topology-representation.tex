@@ -205,7 +205,7 @@ describes an extension of the Network Markup Language\cite{GFD.206} to support t
 
 Section~\ref{sec:nsi_topology_representation} describes the NSI topology representation extension of the Network Markup Language base schema version 1. Only section~\ref{sec:nsi_topology_representation} and \ref{sec:syntax}, and appendices~\ref{app:owl} and~\ref{app:xml} are normative and considered part of the recommendation.
 
-\subsection{Scope}
+\subsection{Scope and Context}
 
 The NSI topology representation is an extension of the Network Markup Language version 1. The NSI topology covers concepts relevant for supporting the Connection Service, which are outside of the scope of NML.
 
@@ -223,9 +223,6 @@ The NSI framework exists to provide users with an interface for inter-domain net
 This document contains terminology which together with the identifier specification in \cite{GFD.202} can support the coordination phase. The identifiers and descriptions are then formalized in topology descriptions, for which a schema is defined in this document. The dissemination phase is explicitly out of scope of this document, see also \cite{gfd-nsi-topo-serv}. The reservation phase is where the NSI interactions occur, see also \cite{GFD.173}.
 
 
-\subsection{Context} % (fold)
-\label{sub:context}
-
 The NSI topology representation is defined based on the concepts defined in the NSI Framework document\cite{GFD.173}, NSI Connection Service version 2\cite{gfd-nsi-connection}, the NSI Topology Service\cite{gfd-nsi-topo-serv} and the Network Markup Language base schema version 1\cite{GFD.206}.
 
 % subsection context (end)
@@ -235,10 +232,12 @@ The NSI topology representation is defined based on the concepts defined in the 
 The keywords “\MUST{}”, “\MUSTNOT{}”, “\REQUIRED{}”, “\SHALL{}”, “\SHALLNOT{}”, 
 “\SHOULD{}”, “\SHOULDNOT{}”, “\RECOMMENDED{}”, “\MAY{}”,  and “\OPTIONAL{}” are 
 to be interpreted as described in \cite{rfc2119}.
-% except that the words do not appear in uppercase. 
+
+The graphical representation of the relation definitions are to be interpreted as described in \cite{GFD.206}.
 
 Names of classes are capitalised and written in italics (e.g. the \emph{Node} class).
 Names of relations are written in camel case and in italics (e.g. the \emph{hasNode} relation).
+
 % subsection notational_conventions (end)
 
 
@@ -314,7 +313,7 @@ The definitions of the new concepts are defined below.
 
 The base namespace of the NSI Topology Extension schema is \path{http://schemas.ogf.org/nsi/2013/03/topology#}.
 
-\begin{table}
+\begin{table}[b]
 \begin{center}
 
   \begin{tabular}{|l|l|}
@@ -511,7 +510,7 @@ Defined relations are:
 
 The NSI topology representation is an extension of the Network Markup Language base schema version 1. As such it has both an XML and an OWL representation, defined in appendix~\ref{app:xml} and \ref{app:owl} respectively.
 
-The XML syntax is the \RECOMMENDED{} NSI topology syntax. An NSA \MUST{} publish its topology in the XML syntax and \MUST{} be able to parse the XML syntax, and \SHOULD{} be able to parse the OWL syntax.
+The XML syntax is the \RECOMMENDED{} NSI topology syntax. An NSA \MUST{} publish its topology in the XML syntax and \MUST{} be able to parse the XML syntax, and \MAY{} be able to parse the OWL syntax.
 
 % section syntax (end)
 
