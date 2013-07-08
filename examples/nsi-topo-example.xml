@@ -3,7 +3,7 @@
               xmlns:nsi="http://schemas.ogf.org/nsi/2013/09/topology#" 
               xmlns:vc="urn:ietf:params:xml:ns:vcard-4.0"
               id="urn:ogf:network:example.org:2013:nsa"
-              version="2013-05-29T12:11:12">
+              version="2013-05-29T12:11:12Z">
 
     <nml:Location id="urn:ogf:network:example.com:2013:location">
       <nml:lat>55.637</nml:lat>

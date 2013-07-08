@@ -71,7 +71,7 @@
     <nml:Topology rdf:about="urn:ogf:network:example.com:2013:topology">
         <nml:locatedAt rdf:resource="urn:ogf:network:example.com:2013:Location"/>
         <nml:name>ExampleA Topology</nml:name>
-        <nml:version>2013-05-29T12:11:12</nml:version>
+        <nml:version>2013-05-29T12:11:12Z</nml:version>
         <nml:hasInboundPort>
             <nml:PortGroup rdf:about="urn:ogf:network:example.com:2013:eth0-in">
                 <nml:isAlias rdf:resource="urn:ogf:network:example.org:2013:if0-out"/>
