@@ -388,7 +388,7 @@ An \emph{Service} may have the following attributes:
   \item \emph{type} to an NSI Service type
 \end{itemize}
 
-The values of the \emph{type} attribute \SHOULD{} be specified in a Grid Forum Documents (GFD), see also \cite{gfd-discovery-service}.
+The values of the \emph{type} attribute \SHOULD{} be specified in a Grid Forum Document (GFD), see also \cite{gfd-discovery-service}.
 % subsection NSA (end)
 
 
@@ -418,7 +418,7 @@ Defined relations are:
 \end{itemize}
 
 % subsubsection admincontact (end)
-
+\subsubsection{hasService}
 \label{ssub:hasService}
 
 \emph{hasService} is used to relate a \emph{Network Object} to an NSI service it provides, this service is described using a \emph{Service} object.
@@ -475,12 +475,28 @@ Defined relations are:
 \emph{Attributes} are properties of an object. The following attributes have been defined in section~\ref{sub:classes}.
 
 \begin{tabular}{@{}p{0.25\textwidth}p{0.72\textwidth}}
-\textbf{Attribute} &                                                                                   \textbf{Class (section)}\\
-    
+\textbf{Attribute} & \textbf{Class (section)}\\
+ isRefernce  &  Network Object\\
  describedBy &  Service (\ref{class:Service})\\
- link &  Service (\ref{class:Service})\\
- type &  Service (\ref{class:Service})\\
+ link        &  Service (\ref{class:Service})\\
+ type        &  Service (\ref{class:Service})\\
 \end{tabular}
+
+\subsubsection{isReference} % (fold)
+\label{ssub:isreference}
+\emph{isReference} provides a URL for referring to a description of a \emph{Network Object}. This is used to allow topology discovery. This is a control-plane construct, which is why it has not been defined in the NML Base Schema.
+
+Allowed relations are:
+\begin{itemize}
+    \item \nmlrelation{Network Object}{*}{isReference}{*}{URL}
+\end{itemize}
+
+Defined relations are:
+\begin{itemize}
+    \item \nmlrelation{Network Object}{*}{isReference}{*}{URL}
+\end{itemize}
+
+% subsubsection isreference (end)
 
 \subsubsection{describedBy} % (fold)
 \label{ssub:describedby}
