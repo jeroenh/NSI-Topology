@@ -12,9 +12,9 @@
 \usepackage[pdfborder={0 0 0}]{hyperref} % use hyperref without borders
 \hypersetup{
     pdftitle = {Network Service Interface Topology Representation},
-    pdfauthor = {Jeroen van der Ham},
+    pdfauthor = {Jeroen van der Ham, John MacAuley},
     pdfsubject = {Specification of the NSI extensions for topology representation},
-    pdfkeywords = {nsi topology representation}
+    pdfkeywords = {NSI topology representation}
 }
 \usepackage{ifpdf}
 \usepackage{ifthen}
@@ -90,13 +90,13 @@
 %%%% Document header and title page %%%%
 
 \title{Network Service Interface Topology Representation}
-\author{Jeroen van der Ham}
+\author{Jeroen van der Ham \and John MacAuley}
 \newcommand{\shortdoctitle}{NSI Topology Representation}  % Title used in page header
 % \date{} and \author{} are currently ignored
-\newcommand{\authorsshort}{Jeroen van der Ham, UvA}
-\newcommand{\publicationdate}{June 2013}  % Date of first publication of the document
+\newcommand{\authorsshort}{Jeroen van der Ham, UvA\\ John MacAuley, SURFnet}
+\newcommand{\publicationdate}{January 2014}  % Date of first publication of the document
 % \newcommand{\revisiondate}{August 2013}  % Optional: date of last revision of the document
-\newcommand{\copyrightyears}{2008-2013}  % Years used in copyright notice
+\newcommand{\copyrightyears}{2008-2014}  % Years used in copyright notice
 \newcommand{\docseries}{GWD-R-P}  % GWD-R, GWD-I or GWD-C (for working drafts)
 % \newcommand{\docseries}{GFD.191}  % GFD.000 (for approved documents)
 
@@ -250,27 +250,24 @@ The NSI topology schema describes the components required for the NSI Connection
 \subsection{Service Termination Point Definition} % (fold)
 \label{sub:service_termination_point_definition}
 
-A prerequisite for an Service Termination Point (STP) is the existence of a physical connection into a Network. This pre-existing capability (typically made up of a physical port on a Network) can be advertized to an Network Service Agent (NSA). Note that the choice about which resources to advertize is subject to local policy. Once advertized, these capabilities may be used by the path-finding function of the NSA.
+A prerequisite for an Service Termination Point (STP) is the existence of a physical connection into a Network. This pre-existing capability (typically made up of a physical port on a Network) can be advertised to an Network Service Agent (NSA). Note that the choice about which resources to advertise is subject to local policy. Once advertised, these capabilities may be used by the path-finding function of the NSA.
 
-STPs are advertized as `capabilities' to the NSA, i.e. they are not instantiated resources, but rather capabilities available for use in creating a Network Service. For example, this would include advertizing that a VLAN id 30 is available for use. When the NSA wishes to instantiate VLAN 30, this is signaled to the NRM and the VLAN 30 instance is created. Both STP capabilities and STP instances are represented in the NSI Service Plane with STP identifiers.
+STPs are advertised as `capabilities' to the NSA, i.e. they are not instantiated resources, but rather capabilities available for use in creating a Network Service. For example, this would include advertising that a VLAN id 30 is available for use. When the NSA wishes to instantiate VLAN 30, this is signaled to the NRM and the VLAN 30 instance is created. Both STP capabilities and STP instances are represented in the NSI Service Plane with STP identifiers.
 
 
 % subsection service_termination_point_definition (end)
 \subsection{Service Termination Point Identifiers}
 
 A source or destination of a connection request in the NSI Connection Service is identified by 
-the Topology identifier and two unidirectional \emph{Ports} or \emph{PortGroups}. The Topology identifier must be globally unique, and the Port or PortGroup identifiers must at least be locally unique such that combining them with a Topology identifiers yields a globally unique combination.
+a single NML identifier, a URI. This identifier can point to a unidirectional \emph{Port}, \emph{PortGroup} or \emph{BidirectionalPort}. 
 
 A recommended way of constructing such an identifier is by using 
 the \path{urn:ogf:network} namespace\cite{GFD.202}, for example \path{urn:ogf:network:example.net:2013:A1}.
 This identifier has three components: the prefix, \path{urn:ogf:network} 
 which describes that it is a network identifier, the authoring namespace, \path{example.net:2013} 
 which is the DNS name and a (at least) year to make a globally unique prefix\footnote{  
-The date component in the identifier is optional but recommended. The DNS name 
-is a temporary lease, which can change hands, so in order to guarantee uniqueness, 
-the year component can be added.}, and the local component, \path{A1} defined by the originating 
+The date component in the identifier can optionally be more specific, but must at least include the four-digit year. The DNS name is a temporary lease, which can change hands, so in order to guarantee uniqueness, the year component is needed.}, and the local component, \path{A1} defined by the originating 
 network.
-
 
 \subsection{Service Termination Point Groups}
 
@@ -297,10 +294,10 @@ specific VLAN range available. A request with just that identifier as the destin
 will allow the pathfinder to select a VLAN on that specific endpoint, and return 
 it to the user, using the query component.
 
-\subsubsection{Inter-Domain Topology} % (fold)
-\label{ssub:interdomain_topology}
-
-% subsubsection interdomain_topology (end)
+% \subsubsection{Inter-Domain Topology} % (fold)
+% \label{ssub:interdomain_topology}
+% 
+% % subsubsection interdomain_topology (end)
 
 
 \section{NSI Topology Representation} % (fold)
@@ -320,9 +317,9 @@ The base namespace of the NSI Topology Extension schema is \path{http://schemas.
 \hline
      \textit{NSI Concept} &                               \textit{Representation}\\
 \hline
-             STP Local ID & 2x \texttt{nml:Port} / \texttt{nml:BidirectionalPort}\\
+Service Termination Point & 2x \texttt{nml:Port} / \texttt{nml:BidirectionalPort}\\
 \hline
-             Connected To &                                  \texttt{nml:isAlias}\\
+Service Demarcation Point &                                  \texttt{nml:isAlias}\\
 \hline
                 NSNetwork &                                 \texttt{nml:Topology}\\
 \hline
@@ -340,10 +337,12 @@ The base namespace of the NSI Topology Extension schema is \path{http://schemas.
 \hline
             Admin Contact &                             \texttt{nsi:adminContact}\\
 \hline
-             NSI Services &                                  \texttt{nsi:Service}\\
+             NSI Services &                                \texttt{nsi:Interface}\\
 \hline
-Control-plane connections &                                \texttt{nsi:peersWith}\\
+        Service Domain   &                          \texttt{nml:Service}\\
 \hline
+% Control-plane connections &                                \texttt{nsi:peersWith}\\
+% \hline
 \end{tabular}
 \caption{Relation of NSI and NML terminology}\label{tab:nsi-nml}
   \end{center}
@@ -362,7 +361,7 @@ An \emph{NSA} object represents a Network Service Agent which can accept Connect
 An \emph{NSA} may have the following relations:
 \begin{itemize}
   \item \emph{adminContact} to a vCard object describing contact details for its administrator
-  \item \emph{hasService} to a \emph{Service} object describing a service the NSA provides
+  \item \emph{hasInterface} to a \emph{Interface} object describing a service the NSA provides
 \end{itemize}
 
 An \emph{NSA} may have the following attributes:
@@ -372,14 +371,14 @@ An \emph{NSA} may have the following attributes:
 \end{itemize}
 
 % subsection NSA (end)
-\subsubsection{Service}% (fold)
-\label{class:Service}
+\subsubsection{Interface}% (fold)
+\label{class:Interface}
 
-The NSI framework contains many different services, the details of these can be described using a \emph{Service} object. Further details of this object can be described using its attributes.
+The NSI framework contains many different services, for which an interface can be defined. The details of these can be described using a \emph{Interface} object. Further details of this object can be described using its attributes.
 
-\emph{Service} inherits from the NML \emph{Network Object}
+\emph{Interface} inherits from the NML \emph{Network Object}
 
-An \emph{Service} may have the following attributes:
+An \emph{Interface} may have the following attributes:
 \begin{itemize}
   \item \emph{describedBy} to point to a WADL file
   \item \emph{id} to assign a persistent globally unique URI
@@ -397,7 +396,7 @@ The values of the \emph{type} attribute \SHOULD{} be specified in a Grid Forum D
 \emph{Relation}s describe how different \emph{Network Object}s relate to each other, 
 typically to form a network topology description. 
 
-The \emph{hasService} and \emph{manages} relations are \emph{implicit} relations. All other relations are \emph{explicit}. 
+The \emph{hasInterface} and \emph{manages} relations are \emph{implicit} relations. All other relations are \emph{explicit}. 
 The distinction between implicit and explicit relations may be used by a syntax to 
 allow a more compact network description.
 
@@ -418,19 +417,19 @@ Defined relations are:
 \end{itemize}
 
 % subsubsection admincontact (end)
-\subsubsection{hasService}
-\label{ssub:hasService}
+\subsubsection{hasInterface}
+\label{ssub:hasInterface}
 
-\emph{hasService} is used to relate a \emph{Network Object} to an NSI service it provides, this service is described using a \emph{Service} object.
+\emph{hasInterface} is used to relate a \emph{Network Object} to an NSI service it provides, this service is described using a \emph{Interface} object.
 
 Allowed relations are:
 \begin{itemize}
-    \item \nmlrelation{Network Object}{*}{hasService}{*}{Service}
+    \item \nmlrelation{Network Object}{*}{hasInterface}{*}{Interface}
 \end{itemize}
 
 Defined relations are:
 \begin{itemize}
-    \item \nmlrelation{NSA}{*}{hasService}{*}{Service}
+    \item \nmlrelation{NSA}{*}{hasInterface}{*}{Interface}
 \end{itemize}
 
 % subsubsection admincontact (end)
@@ -452,22 +451,22 @@ Defined relations are:
 
 % subsubsection manages (end)
 
-\subsubsection{peersWith} % (fold)
-\label{ssub:peerswith}
-
-The \emph{peersWith} relation defines the control-plane connections between different \emph{NSA}s.
-
-Allowed relations are:
-\begin{itemize}
-    \item \nmlrelation{NSA}{*}{peersWith}{*}{NSA}
-\end{itemize}
-
-Defined relations are:
-\begin{itemize}
-    \item \nmlrelation{NSA}{*}{peersWith}{*}{NSA}
-\end{itemize}
-
-% subsubsection peerswith (end)
+% \subsubsection{peersWith} % (fold)
+% \label{ssub:peerswith}
+% 
+% The \emph{peersWith} relation defines the control-plane connections between different \emph{NSA}s.
+% 
+% Allowed relations are:
+% \begin{itemize}
+%     \item \nmlrelation{NSA}{*}{peersWith}{*}{NSA}
+% \end{itemize}
+% 
+% Defined relations are:
+% \begin{itemize}
+%     \item \nmlrelation{NSA}{*}{peersWith}{*}{NSA}
+% \end{itemize}
+% 
+% % subsubsection peerswith (end)
 
 \subsection{Attributes}
 \label{sub:attributes}
@@ -476,10 +475,10 @@ Defined relations are:
 
 \begin{tabular}{@{}p{0.25\textwidth}p{0.72\textwidth}}
 \textbf{Attribute} & \textbf{Class (section)}\\
- isRefernce  &  Network Object\\
- describedBy &  Service (\ref{class:Service})\\
- link        &  Service (\ref{class:Service})\\
- type        &  Service (\ref{class:Service})\\
+ isReference  &  Network Object\\
+ describedBy &  Interface (\ref{class:Interface})\\
+ link        &  Interface (\ref{class:Interface})\\
+ type        &  Interface (\ref{class:Interface})\\
 \end{tabular}
 
 \subsubsection{isReference} % (fold)
@@ -501,7 +500,7 @@ Defined relations are:
 \subsubsection{describedBy} % (fold)
 \label{ssub:describedby}
 
-\emph{describedBy} defines that a \emph{Service} is described by a WADL\cite{w3-wadl} or WSDL\cite{w3-wsdl} description located at the defined URL.
+\emph{describedBy} defines that a \emph{Interface} is described by a WADL\cite{w3-wadl} or WSDL\cite{w3-wsdl} description located at the defined URL.
 
 % subsubsection describedby (end)
 
@@ -515,7 +514,7 @@ Defined relations are:
 \subsubsection{type} % (fold)
 \label{ssub:type}
 
-\emph{type} defines the type of the \emph{Service} using an identifier which \SHOULD{} be defined in a GFD, see also \cite{gfd-discovery-service}.
+\emph{type} defines the type of the \emph{Interface} using an identifier which \SHOULD{} be defined in a GFD, see also \cite{gfd-discovery-service}.
 % subsubsection type (end)
 
 % subsection nsi_topology_representation (end)
@@ -545,9 +544,9 @@ The equivalent topology is also represented using the OWL format below.
 
 
 The above example provides a minimal description to expose, 
-an \emph{NSA}, a \emph{Location}, two \emph{Service}s, and a\emph{Topology}, with two \emph{PortGroups} for the connection with example.org domain.
+an \emph{NSA}, a \emph{Location}, two \emph{Interface}s, and a\emph{Topology}, with two \emph{PortGroups} for the connection with example.org domain.
 
-The \emph{NSA} element is the main description point of the network. Through the \emph{Service}s elements it describes how 
+The \emph{NSA} element is the main description point of the network. Through the \emph{Interface}s elements it describes how 
 the NSI different services can be reached, the peering with other domains, as well as the \emph{Topology} that is managed by the \emph{NSA}.
 
 

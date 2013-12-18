@@ -6,9 +6,9 @@
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         
     <nsi:NSA rdf:about="urn:ogf:network:example.com:2013:nsa">
-        <nsi:hasService rdf:resource="urn:ogf:network:example.com:2013:nsa-provserv"/>
+        <nsi:hasInterface rdf:resource="urn:ogf:network:example.com:2013:nsa-provserv"/>
         <nml:manages rdf:resource="urn:ogf:network:example.com:2013:topology"/>
-        <nsi:hasService rdf:resource="urn:ogf:network:example.com:2013:nsa-discserv"/>
+        <nsi:hasInterface rdf:resource="urn:ogf:network:example.com:2013:nsa-discserv"/>
         <nsi:peersWith rdf:resource="urn:ogf:network:example.org:2013:nsa"/>
     </nsi:NSA>
     
@@ -17,17 +17,17 @@
         <nml:long rdf:datatype="http://www.w3.org/2001/XMLSchema#float">4.953</nml:long>
     </nml:Location>
     
-    <nsi:Service rdf:about="urn:ogf:network:example.com:2013:nsa-provserv">
+    <nsi:Interface rdf:about="urn:ogf:network:example.com:2013:nsa-provserv">
         <nsi:link>http://nsa.example.com/provisioning</nsi:link>
         <nsi:describedBy>http://nsa.example.com/provisioning/wsdl</nsi:describedBy>
         <nsi:providedBy rdf:resource="urn:ogf:network:example.com:2013:nsa"/>
-    </nsi:Service>
+    </nsi:Interface>
     
-    <nsi:Service rdf:about="urn:ogf:network:example.com:2013:disc-serv">
+    <nsi:Interface rdf:about="urn:ogf:network:example.com:2013:disc-serv">
         <nsi:link>https://nsa.example.com/discovery/services/discovery</nsi:link>
         <nsi:providedBy rdf:resource="urn:ogf:network:example.com:2013:nsa"/>
         <nsi:describedBy>http://nsa.example.com/discovery/wadl</nsi:describedBy>
-    </nsi:Service>
+    </nsi:Interface>
     
     <nsi:adminContact>
         <vc:VCard rdf:about="urn:ogf:network:example.com:2013:admin">
