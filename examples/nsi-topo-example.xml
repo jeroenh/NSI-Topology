@@ -81,7 +81,9 @@
     <nml:Topology id="urn:ogf:network:example.org:2013:topology">
         <nml:name>ExampleA Topology</nml:name>
         
-        <nml:SwitchingService id="urn:ogf:network:example.net:2012:nodeA:switchingService" labelSwapping="true">
+        <nml:SwitchingService id="urn:ogf:network:example.net:2012:nodeA:switchingService"
+        	      labelSwapping="true"
+    		      labelType="http://schemas.ogf.org/nml/2012/10/ethernet#vlan">
           <nml:Relation type="http://schemas.ogf.org/nml/2013/05/base#hasInboundPort">
             <nml:Port id="urn:ogf:network:example.com:2012:nodeA:eth0-in" />
             <nml:Port id="urn:ogf:network:example.com:2012:nodeA:eth1-in" />

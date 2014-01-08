@@ -5,6 +5,11 @@
          xmlns:nmleth="http://schemas.ogf.org/nml/2013/05/ethernet#"
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         
+     <rdf:Description rdf:about="http://schemas.ogf.org/nml/2013/05/ethernet#vlans">
+         <nml:labelType rdf:resource="http://schemas.ogf.org/nml/2013/05/ethernet#vlan"/>
+         <owl:subPropertyOf rdf:resource="http://schemas.ogf.org/nml/2013/05/base#hasLabelGroup"/>
+     </rdf:Description>
+         
     <nsi:NSA rdf:about="urn:ogf:network:example.com:2013:nsa">
         <nsi:hasInterface rdf:resource="urn:ogf:network:example.com:2013:nsa-provserv"/>
         <nml:manages rdf:resource="urn:ogf:network:example.com:2013:topology"/>
@@ -71,17 +76,25 @@
     <nml:Topology rdf:about="urn:ogf:network:example.com:2013:topology">
         <nml:locatedAt rdf:resource="urn:ogf:network:example.com:2013:Location"/>
         <nml:name>ExampleA Topology</nml:name>
-        <nml:version>2013-05-29T12:11:12Z</nml:version>
+        <nml:hasService>
+            <nml:SwitchingService rdf:about="urn:ogf:network:example.net:2012:nodeA:switchingService">
+                <nml:labelSwapping rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">True</nml:labelSwapping>
+                <nml:labelType rdf:resource="http://schemas.ogf.org/nml/2012/10/ethernet#vlan"/>
+                <nml:hasInboundPort rdf:resource="urn:ogf:network:example.com:2012:nodeA:eth0-in"/>
+                <nml:hasInboundPort rdf:resource="urn:ogf:network:example.com:2012:nodeA:eth1-in"/>
+                <nml:hasOutboundPort rdf:resource="urn:ogf:network:example.com:2012:nodeA:eth0-out"/>
+                <nml:hasOutboundPort rdf:resource="urn:ogf:network:example.com:2012:nodeA:eth1-out"/>
+            </nml:SwitchingService>
         <nml:hasInboundPort>
             <nml:PortGroup rdf:about="urn:ogf:network:example.com:2013:eth0-in">
-                <nml:isAlias rdf:resource="urn:ogf:network:example.org:2013:if0-out"/>
+                <nml:isAlias rdf:resource="urn:ogf:network:example.org:2013:eth0-out"/>
                 <nmleth:vlans>1780-1783</nmleth:vlans>
             </nml:PortGroup>
         </nml:hasInboundPort>
         <nml:hasOutboundPort>
             <nml:PortGroup rdf:about="urn:ogf:network:example.com:2013:eth0-out">
                 <nmleth:vlans>1780-1783</nmleth:vlans>
-                <nml:isAlias rdf:resource="urn:ogf:network:example.org:2013:if0-in"/>
+                <nml:isAlias rdf:resource="urn:ogf:network:example.org:2013:eth0-in"/>
             </nml:PortGroup>
         </nml:hasOutboundPort>
     </nml:Topology>
